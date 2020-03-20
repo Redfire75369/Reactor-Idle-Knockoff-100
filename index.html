@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Reactor Idle Knockoff 100</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="libs/expantanum.min.js" defer></script>
+    <script src="libs/lodash.min.js" defer></script>
+    <script src="libs/mousetrap.min.js" defer></script>
+    <script src="libs/clipboard.js" defer></script>
+    <script src="notation.js" defer></script>
+    <script src="game.js" defer></script>
+    <script src="saveload.js" defer></script>
+    <script src="core/money.js" defer></script>
+    <script src="core/energy.js" defer></script>
+    <script src="core/fuel.js" defer></script>
+    <script src="core/heat.js" defer></script>
+    <script src="core/steam.js" defer></script>
+    <script src="core/reactor.js" defer></script>
+    <script src="core/cooling_rod.js" defer></script>
+    <script src="core/turbine.js" defer></script>
+    <script src="navigation.js" defer></script> 
+    <script src="init_game.js" defer></script> 
+  </head>
+  <body>
+    <div>
+      <p>You have $<span id="money">0.00</span>.</p>
+      <p>You have stored <span id="energy">0.00</span>J.</p>
+      <span class="lh40"><button onclick="sellEnergy()" class="sbb height lightgrey">
+        Sell energy for money
+      </button></span>
+    </div>
+    <div>
+      You have <span id="water">1000.0</span>L of Water and <span id="steam">0.0</span>L of Steam.
+      <span class="lh40"><button onclick="drainOcean()" class="sbb height blue">
+        Drain ocean to acquire more water for <span id="drainCost"></span>
+        </button></span>
+    </div>
+    <div id="navibtn" class="center">
+			<table class="center">
+				<tr>
+					<td class="lh40 center">
+						<button onclick="showMainTab('production')" id="prodbtn" class="navibtn sbb blue smol">Production</button>
+            <button onclick="showMainTab('milestones')" id="milestonesbtn" class="navibtn sbb yellow smol">Fission Milestones</button>
+						<button onclick="showMainTab('statistics')" id="statsbtn" class="navibtn sbb red smol">Statistics</button>
+						<button onclick="showMainTab('options')" id="optionsbtn" class="navibtn sbb green smol">Options</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+    <div id="production">
+      <div id="LEU">
+        <div>
+          You have <span id="LEU_fuel">1.00</span> grams of LEU-235 fuel.
+          <button onclick="mineFuel('LEU', 1)" class="sbb height green smol center">
+            Mine more fuel for $10.00
+          </button>
+        </div>
+        <div>
+           The concentration of U-235 in your LEU-235 Fuel is <span id="LEU_conc">3.00</span>%
+        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                LEU-235 Reactor ×<span id="LEU_rtmult">1.00</span>
+              </td>
+              <td>
+                <span id="LEU_rt">0</span>
+              </td>
+              <td>
+                <button onclick="buyReactor('LEU')" class="sbb height lightgrey">
+                  Buy LEU Reactor for <span id="LEU_rtcost">1.00</span>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                LEU-235 Cooling Rod ×<span id="LEU_crmult">1.00</span>
+              </td>
+              <td>
+                <span id="LEU_cr">0</span>
+              </td>
+              <td>
+                <button onclick="buyCoolingRod('LEU')" class="sbb height lightgrey">
+                  Buy LEU Cooling Rod for <span id="LEU_crcost">1.00</span>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                LEU-235 Turbine ×<span id="LEU_turmult">1.00</span>
+              </td>
+              <td>
+                <span id="LEU_tur">0</span>
+              </td>
+              <td>
+                <button onclick="buyTurbine('LEU')" class="sbb height lightgrey">
+                  Buy LEU Turbine for <span id="LEU_turcost">1.00</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="options">
+      <table>
+        <tr>
+          <td><button onclick="save()">
+            Save Game
+          </button></td>
+          <td><button onclick="load()">
+            Load Save
+          </button></td>
+        </tr>
+        <tr>
+          <td><button onclick="save()">
+            Import Save
+          </button></td>
+          <td><button onclick="load()">
+            Export Save
+          </button></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

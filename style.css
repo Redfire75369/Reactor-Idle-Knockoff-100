@@ -21,6 +21,19 @@ body {
   text-align: center;
 }
 
+.milestonecomplete {
+	text-align: center;
+	background-color: #127A20;
+	width: 25vw;
+	height: 150px;
+}
+.milestonelocked {
+	text-align: center;
+	background-color: #455A64;
+	width: 25vw;
+	height: 150px;
+}
+	
 /* Reinhardt's magic button styles */
 
 .sbb {
@@ -31,7 +44,7 @@ body {
 	border-radius: 5px;
 	display: inline-block;
 	transition: width 0.2s;
-  transition: height 0.2s;
+	transition: height 0.2s;
 }
 
 .sbb:focus {

@@ -10,7 +10,7 @@ function buyTurbine(type) {
 }
 
 function getTurbineMult(type) {
-  return E(4).pow(player.turbine[type].sub(1));
+  return E(4).pow(player.turbine[type].sub(1)).mul(getMilestoneMult());
 }
 
 function simulateTurbines(tick = 50) {

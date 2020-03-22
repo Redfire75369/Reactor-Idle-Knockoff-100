@@ -10,7 +10,7 @@ function buyReactor(type) {
 }
 
 function getReactorMult(type) {
-  return E(4).pow(player.reactor[type].sub(1));
+  return E(4).pow(player.reactor[type].sub(1)).mul(getMilestoneMult());
 }
 
 function simulateReactors(tick = 50) {

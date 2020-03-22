@@ -2,8 +2,9 @@
 
 ## Number Size (Out of 10)
 - 10^^10 is the bare minimum, but try to reach Graham's number and beyond. <br/>
-  - Currently: E3#2
+  - Currently: E1#2
 - Using Own Engine
+	- ❎
 
 ## Number Progression or Balancing (Out of 20)
 - Balanced

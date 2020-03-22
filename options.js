@@ -12,7 +12,6 @@ function targetedNotationChange(notation) {
 	document.getElementById("notation").innerText = "Notation: " + player.options.notation;
 }
 
-
 function save() {
 	saveGame();
 }
@@ -23,10 +22,14 @@ function load() {
 
 function importSave() {
 	let save = prompt("Input your save. WARNING: Your current save file will be overwritten.");
+	if (save === null) {
+		return
+	}
 	loadSave(save, true);
 	saveGame();
 }
 function exportSave() {
 	saveGame();
 	copyStringToClipboard(getSaveString());
+	alert("Save copied to clipboard");
 }

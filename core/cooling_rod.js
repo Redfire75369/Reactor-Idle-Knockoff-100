@@ -10,7 +10,7 @@ function buyCoolingRod(type) {
 }
 
 function getCoolingRodMult(type) {
-  return E(4).pow(player.coolingRod[type].sub(1));
+  return E(4).pow(player.coolingRod[type].sub(1)).mul(getMilestoneMult());
 }
 
 function simulateCoolingRods(tick = 50) {

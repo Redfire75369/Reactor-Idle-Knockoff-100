@@ -4,28 +4,23 @@ function E(x) {
 
 function getDefault() {
 	return {
-		money: E(0),
-		energy: E(0),
+		money: E(0)
+		/*energy: E(0),
 		
 		heat: E(0),
 		totalWater: E(100),
-		water: E(100),
+		water: E(100)
 		steam: E(0),
 		
-		reactor: {
-			LEU: E(1)
-		},
-		coolingRod: {
-			LEU: E(1)
-		},
-		turbine: {
-			LEU: E(1),
-		},
 		fuel: {
-			LEU: E(1)
+			amount: [E(1)],
+			conc: 3,
 		},
-		fuelConc: {
-			LEU: 3
+		
+		production: {
+			reactor: [E(0)],
+			turbine: [E(0)],
+			coolingRod: [E(0)]
 		},
 		
 		milestones: {
@@ -35,8 +30,18 @@ function getDefault() {
 			14: false
 		},
 		
-		autotierone: {
-			energy: 0
+		automation: {
+			energy: 0,
+			LEUrt: 0,
+			LEUtur: 0,
+			LEUcr: 0
+		},
+		
+		enabledAuto: {
+			energy: false,
+			LEUrt: false,
+			LEUtur: false,
+			LEUcr: false
 		},
 		
 		options: {
@@ -46,7 +51,7 @@ function getDefault() {
 		navigation: {
 			main: "production",
 			production: "LEU"
-		}
+		}*/
 	};
 }
 
@@ -54,12 +59,20 @@ const zero = E(0);
 const types = ["LEU"];
 var player = getDefault();
 
+function titleCase(string) {
+  var sentence = string.toLowerCase().split(" ");
+  for(let i = 0; i < sentence.length; i++){
+	 sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+  }
+   document.write(sentence.join(" "));
+   return sentence;
+}
 
 function hardReset() {
 	player = getDefault();
 }
 
-setInterval(function(){
+/*setInterval(function(){
 	updateUIMoney();
 	updateUIEnergy();
 	updateUISteam();
@@ -68,6 +81,7 @@ setInterval(function(){
 	updateUITurbines();
 	updateUICoolingRods();
 	updateUIMilestones();
+	//updateUIAuto();
 }, 100)
 
 
@@ -76,9 +90,9 @@ setInterval(function() {
 	simulateSteam(100);
 	simulateHeat(100);
 	simulateEnergy(100);
-	simulateAuto();
+	//simulateAuto();
 }, 100)
 
 setInterval(function() {
 	saveGame();
-}, 15000)
+}, 15000)*/

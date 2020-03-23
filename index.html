@@ -8,34 +8,34 @@
 		
 		<link rel="stylesheet" href="style.css">
 		
-		<script src="libs/expantanum.min.js" defer></script>
-		<script src="libs/lodash.min.js" defer></script>
-		<script src="libs/mousetrap.min.js" defer></script>
-		<script src="libs/clipboard.js" defer></script>
-		<script src="notation.js" defer></script>
-		<script src="game.js" defer></script>
-		<script src="saveload.js" defer></script>
-		<script src="core/money.js" defer></script>
-		<script src="core/energy.js" defer></script>
-		<script src="core/fuel.js" defer></script>
-		<script src="core/heat.js" defer></script>
-		<script src="core/steam.js" defer></script>
-		<script src="core/reactor.js" defer></script>
-		<script src="core/turbine.js" defer></script>
-		<script src="core/cooling_rod.js" defer></script>
-		<script src="core/milestones/fission.js" defer></script>
-		<script src="core/automation/tierone.js" defer></script>
-		<script src="options.js" defer></script> 
-		<script src="navigation.js" defer></script> 
-		<script src="init_game.js" defer></script> 
+		<script src="javascripts/libs/expantanum.min.js" defer></script>
+		<script src="javascripts/libs/lodash.min.js" defer></script>
+		<script src="javascripts/libs/mousetrap.min.js" defer></script>
+		<script src="javascripts/libs/clipboard.js" defer></script>
+		<script src="javascripts/notation.js" defer></script>
+		<script src="javascripts/game.js" defer></script>
+		<script src="javascripts/saveload.js" defer></script>
+		<script src="javascripts/core/money.js" defer></script>
+		<script src="javascripts/core/energy.js" defer></script>
+		<script src="javascripts/core/fuel.js" defer></script>
+		<script src="javascripts/core/heat.js" defer></script>
+		<script src="javascripts/core/steam.js" defer></script>
+		<script src="javascripts/core/reactor.js" defer></script>
+		<script src="javascripts/core/turbine.js" defer></script>
+		<script src="javascripts/core/cooling_rod.js" defer></script>
+		<script src="javascripts/core/milestones/fission.js" defer></script>
+		<script src="javascripts/core/automation/auto.js" defer></script>
+		<script src="javascripts/options.js" defer></script> 
+		<script src="javascripts/navigation.js" defer></script> 
+		<script src="javascripts/init_game.js" defer></script> 
 	</head>
 	<body>
 		<div>
 			<p>You have $<span id="money">0.00</span>.</p>
-			<p>You have stored <span id="energy">0.00</span>J.</p>
-			<span class="lh40"><button onclick="sellEnergy()" class="sbb height lightgrey">
+			<p id="energyJ">You have stored <span id="energy">0.00</span>J.</p>
+			<button onclick="sellEnergy()" id="sellEnergy" class="sbb height lightgrey">
 				Sell energy for money
-			</button></span>
+			</button>
 		</div>
 		<div>
 			You have <span id="water">1000.0</span>L of Water and <span id="steam">0.0</span>L of Steam.
@@ -126,19 +126,33 @@
 					<td>
 						<div id="milestone12" class="milestonelocked">
 							Get 100 grams of LEU-235 Fuel <br>
-							Reward: Energy Selling Autobuyer
+							Reward: Unlock Energy Autoseller
 						</div>
 					</td>
 					<td>
 						<div id="milestone13" class="milestonelocked">
 							Buy 8 Reactors <br>
-							Reward: Unlock cooling rods
+							Reward: Unlock LEU+235 Cooling Rods
 						</div>
 					</td>
 					<td>
 						<div id="milestone14" class="milestonelocked">
-							Reach 1e18 J<br>
-							Reward: 
+							Reach 1.332e18 Litres of Water<br>
+							Reward: Unlock Ocean Autodrainer
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="milestone21" class="milestonelocked">
+							Reach 1e20 Multiplier on LEU-235 Reactors<br>
+							Reward: Unlock LEU-235 Reactor and Turbine Autobuyer
+						</div>
+					</td>
+					<td>
+						<div id="milestone22" class="milestonelocked">
+							Reach 20 LEU-235 Cooling Rods<br>
+							Reward: Unlock LEU-235 Cooling Rod Autobuyer
 						</div>
 					</td>
 				</tr>
@@ -146,44 +160,69 @@
 		</div>
 		
 		<div id="automation">
-			<button onclick="buyAuto('energy')" class="smol red">Buy for 1e8 Energy</button>
+			<table>
+				<tr>
+					<td>
+						<div class="autodiv">
+							<button onclick="buyAuto('energy')" id="buyEnergyAuto" class="smol red">Buy for 1e8 Energy</button>
+							<button onclick="toggleAuto('energy')" id="toggleEnergyAuto" class="smol red">Energy Autoseller: OFF</button>
+						</div>
+					</td>
+					<td>
+						<div class="autodiv">
+							<div id="LEUrtAuto">
+								<button onclick="buyAuto('LEUrt')" id="buyLEUrtAuto" class="smol red">Buy for 1e15 Energy</button>
+								<button onclick="toggleAuto('LEUrt')" id="toggleLEUrtAuto" class="smol red">LEU-235 Reactor Autobuyer: OFF</button>
+							</div>
+							<div id="LEUturAuto">
+								<button onclick="buyAuto('LEUtur')" id="buyLEUturAuto" class="smol red">Buy for 1e20 Energy</button>
+								<button onclick="toggleAuto('LEUtur')" id="toggleLEUturAuto" class="smol red">LEU-235 Turbine Autobuyer: OFF</button>
+							</div>
+							<div id="LEUcrAuto">
+								<button onclick="buyAuto('LEUcr')" id="buyLEUcrAuto" class="smol red">Buy for 1e40 Energy</button>
+								<button onclick="toggleAuto('LEUcr')" id="toggleLEUcrAuto" class="smol red">LEU-235 Cooling Rod Autobuyer: OFF</button>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
 		
 		<div id="options">
 			<table>
 				<tr>
-			<td align="right">
-					<button onclick="save()" class="sbb aqua" align="center">
-						Save
-					</button>
-			</td>
-			<td align="left">
-					<button onclick="load()" class="sbb aqua" align="center">
-						Load
-					</button>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-					<button onclick="importSave()" class="sbb aqua" align="center">
-						Import Save
-					</button>
-			</td>
-			<td align="left">
-					<button onclick="exportSave()" class="sbb aqua" align="center">
-						Export Save
-					</button>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-					<button onclick="hardReset()" class="sbb aqua" align="center">
-						Hard Reset
-					</button>
-			</td>
+					<td align="right">
+							<button onclick="save()" class="sbb aqua" align="center">
+								Save
+							</button>
+					</td>
+					<td align="left">
+							<button onclick="load()" class="sbb aqua" align="center">
+								Load
+							</button>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+							<button onclick="importSave()" class="sbb aqua" align="center">
+								Import Save
+							</button>
+					</td>
+					<td align="left">
+							<button onclick="exportSave()" class="sbb aqua" align="center">
+								Export Save
+							</button>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+							<button onclick="hardReset()" class="sbb aqua" align="center">
+								Hard Reset
+							</button>
+					</td>
 				</tr>
 			</table>
 		</div>
-		<p id="test" style="color:white"></p>
+		<p id="test"></p>
 	</body>
 </html>

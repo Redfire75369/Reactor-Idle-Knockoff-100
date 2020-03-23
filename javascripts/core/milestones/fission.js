@@ -14,7 +14,7 @@ function checkMilestones() {
 	player.milestones[11] = player.milestones[11] ? true : player.money.gte(10);
 	player.milestones[12] = player.milestones[12] ? true : player.fuel.LEU.gte(100);
 	player.milestones[13] = player.milestones[13] ? true : player.reactor.LEU.gte(8);
-	player.milestones[14] = player.milestones[14] ? true : player.energy.gte(1e18);
+	player.milestones[14] = player.milestones[14] ? true : player.water.gte(1.332e18);
 }
 
 function updateUIMilestones() {
@@ -22,6 +22,9 @@ function updateUIMilestones() {
 	document.getElementById("mineLEU").style.display = player.milestones[11] ? "inline-block" : "none";
 	document.getElementById("autobtn").style.display = player.milestones[12] ? "inline-block" : "none";
 	document.getElementById("LEU_crrow").style.display= player.milestones[13] ? "table-row" : "none";
+	document.getElementById("LEUrtAuto").style.display= player.milestones[14] ? "inline-block" : "none";
+	document.getElementById("LEUturAuto").style.display= player.milestones[14] ? "inline-block" : "none";
+	
 	for (let i = 0; i < milestones.length; i++) {
 		document.getElementById("milestone" + milestones[i]).className = player.milestones[milestones[i]] ? "milestonecomplete" : "milestonelocked";
 	}

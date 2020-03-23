@@ -5,7 +5,7 @@ function init_game() {
 	document.getElementById("milestones").style.display = "none";
 	document.getElementById("automation").style.display = "none";
 	document.getElementById("options").style.display = "none";
-	//showMainTab(player.navigation.main);
+	showMainTab(player.navigation.main);
 }
 
 init_game();

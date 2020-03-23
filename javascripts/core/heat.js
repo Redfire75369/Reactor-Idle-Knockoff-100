@@ -1,5 +1,5 @@
 function generateHeat() {
-	return player.reactor.LEU.mul(getReactorMult("LEU")).mul(ExpantaNum.pow(1.05, player.coolingRod.LEU.mul(getCoolingRodMult("LEU")))).mul(player.fuel.LEU).mul(player.fuelConc.LEU);
+	return player.production.reactor[0].mul(getReactorMult(0)).mul(ExpantaNum.pow(1.05, player.production.coolingRod[0].mul(getCoolingRodMult(0)))).mul(player.fuel.amount[0]).mul(player.fuel.conc[0]);
 }
 
 function simulateHeat(tick = 50) {

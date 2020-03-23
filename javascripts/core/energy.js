@@ -1,5 +1,5 @@
 function generateEnergy() {
-	let x = player.turbine.LEU.mul(getTurbineMult("LEU")).mul(ExpantaNum.pow(1.05, player.coolingRod.LEU.mul(getCoolingRodMult("LEU"))));
+	let x = player.production.turbine[0].mul(getTurbineMult(0)).mul(ExpantaNum.pow(1.05, player.production.coolingRod[0].mul(getCoolingRodMult(0))));
 	return (x.gt(player.steam)) ? player.steam : x;
 }
 

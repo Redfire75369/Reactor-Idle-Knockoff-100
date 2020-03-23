@@ -4,12 +4,12 @@ function E(x) {
 
 function getDefault() {
 	return {
-		money: E(0)
-		/*energy: E(0),
+		money: E(0),
+		energy: E(0),
 		
 		heat: E(0),
 		totalWater: E(100),
-		water: E(100)
+		water: E(100),
 		steam: E(0),
 		
 		fuel: {
@@ -31,27 +31,26 @@ function getDefault() {
 		},
 		
 		automation: {
-			energy: 0,
-			LEUrt: 0,
-			LEUtur: 0,
-			LEUcr: 0
+			basic: {
+				energy: [0, false],
+				water: [0, false],
+				fuel: [0, false]
+			},
+			LEU: {
+				reactor: [0, false],
+				turbine: [0, false],
+				coolingRod: [0, false],
+			}
 		},
-		
-		enabledAuto: {
-			energy: false,
-			LEUrt: false,
-			LEUtur: false,
-			LEUcr: false
-		},
+
 		
 		options: {
-			notation: "HyperE",
-			notationNo: 0
 		},
+		
 		navigation: {
 			main: "production",
 			production: "LEU"
-		}*/
+		}
 	};
 }
 
@@ -70,9 +69,10 @@ function titleCase(string) {
 
 function hardReset() {
 	player = getDefault();
+	player.navigation.main = "options";
 }
 
-/*setInterval(function(){
+setInterval(function(){
 	updateUIMoney();
 	updateUIEnergy();
 	updateUISteam();
@@ -81,7 +81,7 @@ function hardReset() {
 	updateUITurbines();
 	updateUICoolingRods();
 	updateUIMilestones();
-	//updateUIAuto();
+	updateUIAuto();
 }, 100)
 
 
@@ -90,9 +90,9 @@ setInterval(function() {
 	simulateSteam(100);
 	simulateHeat(100);
 	simulateEnergy(100);
-	//simulateAuto();
+	simulateAuto();
 }, 100)
 
-setInterval(function() {
+/*setInterval(function() {
 	saveGame();
-}, 15000)*/
+}, 1000)*/

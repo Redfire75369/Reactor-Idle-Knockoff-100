@@ -164,23 +164,33 @@
 				<tr>
 					<td>
 						<div class="autodiv">
-							<button onclick="buyAuto('energy')" id="buyEnergyAuto" class="smol red">Buy for 1e8 Energy</button>
-							<button onclick="toggleAuto('energy')" id="toggleEnergyAuto" class="smol red">Energy Autoseller: OFF</button>
+							<div>
+								<button onclick="buyBasicAuto('energy')" id="energyBasicBuyAuto" class="smol red">Buy for 1e8 Energy</button>
+								<button onclick="toggleBasicAuto('energy')" id="energyBasicToggleAuto" class="smol red">Energy Autobuyer: OFF</button>
+							</div>
+							<div>
+								<button onclick="buyBasicAuto('water')" id="waterBasicBuyAuto" class="smol red">Buy for 1e8 Energy</button>
+								<button onclick="toggleBasicAuto('water')" id="waterBasicToggleAuto" class="smol red">Water Autobuyer: OFF</button>
+							</div>
+							<div>
+								<button onclick="buyBasicAuto('fuel')" id="fuelBasicBuyAuto" class="smol red">Buy for <span id="fuelBasicAutoCost">1e8</span> Energy</button>
+								<button onclick="toggleBasicAuto('fuel')" id="fuelBasicToggleAuto" class="smol red">Energy Autoseller: OFF</button>
+							</div>
 						</div>
 					</td>
 					<td>
 						<div class="autodiv">
 							<div id="LEUrtAuto">
-								<button onclick="buyAuto('LEUrt')" id="buyLEUrtAuto" class="smol red">Buy for 1e15 Energy</button>
-								<button onclick="toggleAuto('LEUrt')" id="toggleLEUrtAuto" class="smol red">LEU-235 Reactor Autobuyer: OFF</button>
+								<button onclick="buyLEUAuto('reactor')" id="reactorLEUBuyAuto" class="smol red">Buy for 1e35 Energy</button>
+								<button onclick="toggleLEUAuto('reactor')" id="reactorLEUToggleAuto" class="smol red">LEU-235 Reactor Autobuyer: OFF</button>
 							</div>
 							<div id="LEUturAuto">
-								<button onclick="buyAuto('LEUtur')" id="buyLEUturAuto" class="smol red">Buy for 1e20 Energy</button>
-								<button onclick="toggleAuto('LEUtur')" id="toggleLEUturAuto" class="smol red">LEU-235 Turbine Autobuyer: OFF</button>
+								<button onclick="buyLEUAuto('turbine')" id="turbineLEUBuyAuto" class="smol red">Buy for 1e30 Energy</button>
+								<button onclick="toggleLEUAuto('turbine')" id="turbineLEUToggleAuto" class="smol red">LEU-235 Turbine Autobuyer: OFF</button>
 							</div>
 							<div id="LEUcrAuto">
-								<button onclick="buyAuto('LEUcr')" id="buyLEUcrAuto" class="smol red">Buy for 1e40 Energy</button>
-								<button onclick="toggleAuto('LEUcr')" id="toggleLEUcrAuto" class="smol red">LEU-235 Cooling Rod Autobuyer: OFF</button>
+								<button onclick="buyLEUAuto('coolingRod')" id="coolingRodLEUBuyAuto" class="smol red">Buy for 1e50 Energy</button>
+								<button onclick="toggleLEUAuto('coolingRod')" id="coolingRodLEUToggleAuto" class="smol red">LEU-235 Cooling Rod Autobuyer: OFF</button>
 							</div>
 						</div>
 					</td>

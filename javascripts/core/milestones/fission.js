@@ -12,8 +12,8 @@ function getMilestoneMult() {
 
 function checkMilestones() {
 	player.milestones[11] = player.milestones[11] ? true : player.money.gte(10);
-	player.milestones[12] = player.milestones[12] ? true : player.fuel.LEU.gte(100);
-	player.milestones[13] = player.milestones[13] ? true : player.reactor.LEU.gte(8);
+	player.milestones[12] = player.milestones[12] ? true : player.fuel.amount[0].gte(100);
+	player.milestones[13] = player.milestones[13] ? true : player.production.reactor[0].gte(8);
 	player.milestones[14] = player.milestones[14] ? true : player.water.gte(1.332e18);
 }
 

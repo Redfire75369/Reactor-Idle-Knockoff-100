@@ -1,69 +1,89 @@
-const allAuto = ["energy", "rtLEU", "turLEU", "crLEU"];
-function buyAuto(type) {
+const basicAuto = ["energy", "water", "fuel"];
+const LEUAuto = ["reactor", "turbine", "coolingRod"];
+
+function buyBasicAuto(type) {
 	switch (type) {
 		case "energy":
-			if (player.money.gte(1e8) && player.automation.energy != 1) { 
-				player.automation.energy = 1;
+			if (player.money.gte(1e8) && player.automation.basic.energy[0] != 1) { 
+				player.automation.basic.energy[0] = 1;
 			}
-		case "rtLEU":
-			if (player.money.gte(1e15) && player.automation.LEUrt != 1) { 
-				player.automation.LEUrt = 1;
+		case "water":
+			if (player.money.gte(1e8) && player.automation.basic.water[0] != 1) { 
+				player.automation.basic.water[0] = 1;
 			}
-		case "turLEU":
-			if (player.money.gte(1e20) && player.automation.LEUtur != 1) { 
-				player.automation.LEUtur = 1;
+		case "fuel":
+			if (player.money.gte(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]))) { 
+				player.automation.basic.fuel[0] += 1;
 			}
-		case "crLEU":
-			if (player.money.gte(1e40) && player.automation.LEUcr != 1) { 
-				player.automation.LEUcr = 1;
+		
+	}
+}
+function buyLEUAuto(type) {
+	switch (type) {
+		case "reactor":
+			if (player.money.gte(1e25) && player.automation.LEU.reactor[0] != 1) { 
+				player.automation.LEU.reactor[0] = 1;
 			}
-		default:
+		case "turbine":
+			if (player.money.gte(1e30) && player.automation.LEU.turbine[0] != 1) { 
+				player.automation.LEU.turbine[0] = 1;
+			}
+		case "coolingRod":
+			if (player.money.gte(1e50) && player.automation.LEU.ccolingRod[0] != 1) { 
+				player.automation.LEU.coolingRod[0] = 1;
+			}
 	}
 }
 
-function toggleAuto(type) {
-	if (player.automation[type] == 1) {
-		player.enabledAuto[type] = !player.enabledAuto[type];
+function toggleBasicAuto(type) {
+	if (player.automation.basic[type][0] == 1) {
+		player.automation.basic[type][1] = !player.automation.basic[type][1];
 	}
 }
-	
+
+function toggleBasicAuto(type) {
+	if (player.automation.LEU[type][0] == 1) {
+		player.automation.LEU[type][1] = !player.automation.LEU[type][1];
+	}
+}
+
 function simulateAuto() {
-	if (player.automation.energy == 1 && player.enabledAuto.energy) {
+	if (player.automation.basic.energy[1]) {
 		sellEnergy();
 	}
-	if (player.automation.LEUrt == 1 && player.enabledAuto.LEUrt) {
+	if (player.automation.basic.water[1]) {
+		drainOcean();
+	}
+	if (player.automation.basic.fuel[1]) {
+		mineFuel("LEU", player.automation.basic.fuel[0]);
+	}
+	if (player.automation.LEU.reactor[1]) {
 		buyReactor("LEU");
 	}
-	if (player.automation.LEUtur == 1 && player.enabledAuto.LEUtur) {
+	if (player.automation.LEU.turbine[1]) {
 		buyTurbine("LEU");
 	}
-	if (player.automation.LEUcr == 1 && player.enabledAuto.LEUcr) {
+	if (player.automation.LEU.coolingRod[1]) {
 		buyCoolingRod("LEU");
 	}
 }
 
 function updateUIAuto() {
-	document.getElementById("energyJ").style.display = player.enabledAuto.energy ? "none" : "inline-block";
-	document.getElementById("sellEnergy").style.display = player.enabledAuto.energy ? "none" : "inline-block";
+	document.getElementById("energyJ").style.display = player.automation.basic.energy[1] ? "none" : "inline-block";
+	document.getElementById("sellEnergy").style.display = player.automation.basic.energy[1] ? "none" : "inline-block";
+	document.getElementById("fuelBasicAutoCost").innerText = f(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]));
 	
-	for (let i = 0; i < allAuto.length; i++) {
-		document.getElementById(allAuto[i] + "BuyAuto").style.display = player.automation[allAuto[i]] != 1 ? "inline-block" : "none";
-		document.getElementById(allAuto[i] + "BuyAuto").style.display = player.enabledAuto[allAuto[i]] ? "smol green" : "smol red";
-		let x = /*String.proper*/(allAuto[i]);
-		if (x.includes("rt")) {
-			if (x.includes("LEU")) {
-				x = "LEU-235 Reactor";
-			}
-		} else if (x.includes("tur")) {
-			if (x.includes("LEU")) {
-				x = "LEU-235 Turbine";
-			}
-		} else if (x.includes("")) {
-			if (x.includes("LEU")) {
-				x = "LEU-235 Cooling Rod";
-			}
+	for (let i = 0; i < basicAuto.length; i++) {
+		console.log(basicAuto[i]);
+		if (basicAuto[i].includes("fuel")) {
+			document.getElementById(basicAuto[i] + "BasicBuyAuto").style.display = player.automation.basic[basicAuto[i]][0] != 1 ? "inline-block" : "none";
 		}
-
-		document.getElementById(allAuto[i] + "BuyAuto").innerText = player.enabledAuto[allAuto[i]] ? x + "Autobuyer: ON" : x + "Autobuyer: OFF"; 
+		document.getElementById(basicAuto[i] + "BasicToggleAuto").style.display = player.automation.basic[basicAuto[i]][1] ? "smol green" : "smol red";
+		document.getElementById(basicAuto[i] + "BasicBuyAuto").innerText  = titleCase(basicAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
+	}
+	for (let i = 0; i < LEUAuto.length; i++) {
+		document.getElementById(LEUAuto[i] + "LEUBuyAuto").style.display = player.automation.LEU[LEUAuto[i]][0] != 1 ? "inline-block" : "none";
+		document.getElementById(LEUAuto[i] + "LEUToggleAuto").style.display = player.automation.LEU[LEUAuto[i]][1] ? "smol green" : "smol red";
+		document.getElementById(LEUAuto[i] + "LEUToggleAuto").innerText  = LEUAuto[i] == "coolingRod" ? "LEU-235 Cooling Rod Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF" : "LEU-235" + titleCase(LEUAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
 	}
 }

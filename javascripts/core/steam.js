@@ -1,5 +1,5 @@
 function condenseSteam() {
-	let x = generateEnergy().div(player.turbine.LEU).div(ExpantaNum.pow(1.05, player.coolingRod.LEU.mul(getCoolingRodMult("LEU"))));
+	let x = generateEnergy().div(player.production.turbine[0]).div(ExpantaNum.pow(1.05, player.production.coolingRod[0].mul(getCoolingRodMult(0))));
 	return player.steam.gt(x) ? x : player.steam;
 }
 function generateSteam() {

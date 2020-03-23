@@ -14,13 +14,13 @@ function getDefault() {
 		
 		fuel: {
 			amount: [E(1)],
-			conc: 3,
+			conc: [3],
 		},
 		
 		production: {
-			reactor: [E(0)],
-			turbine: [E(0)],
-			coolingRod: [E(0)]
+			reactor: [E(1)],
+			turbine: [E(1)],
+			coolingRod: [E(1)]
 		},
 		
 		milestones: {
@@ -93,6 +93,6 @@ setInterval(function() {
 	simulateAuto();
 }, 100)
 
-/*setInterval(function() {
+setInterval(function() {
 	saveGame();
-}, 1000)*/
+}, 10000)

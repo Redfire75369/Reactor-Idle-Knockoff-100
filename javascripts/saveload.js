@@ -33,15 +33,13 @@ function loadSave(save, imported = false) {
 		
 		for (let i = 0, keys = Object.keys(getDefault()), ii = keys.length; i < ii; i++) {
 			let key = keys[i];
-			if (key.includes("automation")) {
-				player.automation =  getDefault().automation;
-			} else if (typeof getDefault()[key] == "object" && !(getDefault()[key] instanceof ExpantaNum)) {
+			if (typeof getDefault()[key] == "object" && !(getDefault()[key] instanceof ExpantaNum) && !(getDefault()[key] instanceof Array)) {
 				for (let j = 0, keys2 = Object.keys(getDefault()[key]), jj = keys2.length; j < jj; j++) {
 					let key2= keys2[j];
 					
-					if (typeof getDefault()[key][key2] == "object" && !(getDefault()[key][key2] instanceof ExpantaNum)) {
-						for (let k = 0, keys3 = Object.keys(getDefault()[key][key2]), kk = keys3.length; k < kk; k++) {
-							let key3 = keys2[k];
+					if (typeof getDefault()[key][key2] == "object" && !(getDefault()[key][key2] instanceof ExpantaNum) && !(getDefault()[key][key2] instanceof Array)) {
+						for (let k = 0, keys3 = Object.keys(getDefault()[key][key2]), kk = keys3.length; k < kk; k++) {							
+							let key3 = keys3[k];
 							
 							checkAssign(getDefault()[key][key2][key3], save[key][key2][key3], key, key2, key3);
 						}

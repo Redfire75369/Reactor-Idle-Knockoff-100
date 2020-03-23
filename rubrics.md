@@ -2,7 +2,7 @@
 
 ## Number Size (Out of 10)
 - 10^^10 is the bare minimum, but try to reach Graham's number and beyond. <br/>
-  - Currently: E1#2
+  - Currently: E1#3
 - Using Own Engine
 	- ❎
 

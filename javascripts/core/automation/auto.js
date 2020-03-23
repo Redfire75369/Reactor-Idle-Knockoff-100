@@ -29,7 +29,7 @@ function buyLEUAuto(type) {
 				player.automation.LEU.turbine[0] = 1;
 			}
 		case "coolingRod":
-			if (player.money.gte(1e50) && player.automation.LEU.ccolingRod[0] != 1) { 
+			if (player.money.gte(1e50) && player.automation.LEU.coolingRod[0] != 1) { 
 				player.automation.LEU.coolingRod[0] = 1;
 			}
 	}
@@ -41,7 +41,7 @@ function toggleBasicAuto(type) {
 	}
 }
 
-function toggleBasicAuto(type) {
+function toggleLEUAuto(type) {
 	if (player.automation.LEU[type][0] == 1) {
 		player.automation.LEU[type][1] = !player.automation.LEU[type][1];
 	}
@@ -55,16 +55,16 @@ function simulateAuto() {
 		drainOcean();
 	}
 	if (player.automation.basic.fuel[1]) {
-		mineFuel("LEU", player.automation.basic.fuel[0]);
+		mineFuel(0, player.automation.basic.fuel[0]);
 	}
 	if (player.automation.LEU.reactor[1]) {
-		buyReactor("LEU");
+		buyReactor(0);
 	}
 	if (player.automation.LEU.turbine[1]) {
-		buyTurbine("LEU");
+		buyTurbine(0);
 	}
 	if (player.automation.LEU.coolingRod[1]) {
-		buyCoolingRod("LEU");
+		buyCoolingRod(0);
 	}
 }
 
@@ -74,16 +74,19 @@ function updateUIAuto() {
 	document.getElementById("fuelBasicAutoCost").innerText = f(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]));
 	
 	for (let i = 0; i < basicAuto.length; i++) {
-		console.log(basicAuto[i]);
-		if (basicAuto[i].includes("fuel")) {
+		if (!(basicAuto[i].includes("fuel"))) {
 			document.getElementById(basicAuto[i] + "BasicBuyAuto").style.display = player.automation.basic[basicAuto[i]][0] != 1 ? "inline-block" : "none";
 		}
-		document.getElementById(basicAuto[i] + "BasicToggleAuto").style.display = player.automation.basic[basicAuto[i]][1] ? "smol green" : "smol red";
-		document.getElementById(basicAuto[i] + "BasicBuyAuto").innerText  = titleCase(basicAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
+		if (document.getElementById(basicAuto[i] + "BasicToggleAuto").style.display != "none") {
+			document.getElementById(basicAuto[i] + "BasicToggleAuto").className = player.automation.basic[basicAuto[i]][1] ? "smol green" : "smol red";
+			//document.getElementById(basicAuto[i] + "BasicToggleAuto").innerText  = titleCase(basicAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
+		}
 	}
 	for (let i = 0; i < LEUAuto.length; i++) {
 		document.getElementById(LEUAuto[i] + "LEUBuyAuto").style.display = player.automation.LEU[LEUAuto[i]][0] != 1 ? "inline-block" : "none";
-		document.getElementById(LEUAuto[i] + "LEUToggleAuto").style.display = player.automation.LEU[LEUAuto[i]][1] ? "smol green" : "smol red";
-		document.getElementById(LEUAuto[i] + "LEUToggleAuto").innerText  = LEUAuto[i] == "coolingRod" ? "LEU-235 Cooling Rod Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF" : "LEU-235" + titleCase(LEUAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
+		if (document.getElementById(LEUAuto[i] + "LEUToggleAuto").style.display != "none") {
+			document.getElementById(LEUAuto[i] + "LEUToggleAuto").className = player.automation.LEU[LEUAuto[i]][1] ? "smol green" : "smol red";
+			//document.getElementById(LEUAuto[i] + "LEUToggleAuto").innerText  = LEUAuto[i] == "coolingRod" ? "LEU-235 Cooling Rod Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF" : "LEU-235" + titleCase(LEUAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
+		}
 	}
 }

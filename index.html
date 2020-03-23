@@ -59,7 +59,7 @@
 			<div id="LEU">
 				<div>
 					You have <span id="LEU_fuel">1.00</span> grams of LEU-235 fuel.
-					<button onclick="mineFuel('LEU', 1)" id="mineLEU" class="sbb height green smol center">
+					<button onclick="mineFuel(0, 1)" id="mineLEU" class="sbb height green smol center">
 						Mine more fuel for $10.00
 					</button>
 				</div>
@@ -76,7 +76,7 @@
 								<span id="LEU_rt">0</span>
 							</td>
 							<td>
-								<button onclick="buyReactor('LEU')" class="sbb height lightgrey">
+								<button onclick="buyReactor(0)" class="sbb height lightgrey">
 									Buy LEU Reactor for <span id="LEU_rtcost">1.00</span>
 								</button>
 							</td>
@@ -89,7 +89,7 @@
 								<span id="LEU_tur">0</span>
 							</td>
 							<td>
-								<button onclick="buyTurbine('LEU')" class="sbb height lightgrey">
+								<button onclick="buyTurbine(0)" class="sbb height lightgrey">
 									Buy LEU Turbine for <span id="LEU_turcost">1.00</span>
 								</button>
 							</td>
@@ -102,7 +102,7 @@
 								<span id="LEU_cr">0</span>
 							</td>
 							<td>
-								<button onclick="buyCoolingRod('LEU')" class="sbb height lightgrey">
+								<button onclick="buyCoolingRod(0)" class="sbb height lightgrey">
 									Buy LEU Cooling Rod for <span id="LEU_crcost">1.00</span>
 								</button>
 							</td>
@@ -174,14 +174,14 @@
 							</div>
 							<div>
 								<button onclick="buyBasicAuto('fuel')" id="fuelBasicBuyAuto" class="smol red">Buy for <span id="fuelBasicAutoCost">1e8</span> Energy</button>
-								<button onclick="toggleBasicAuto('fuel')" id="fuelBasicToggleAuto" class="smol red">Energy Autoseller: OFF</button>
+								<button onclick="toggleBasicAuto('fuel')" id="fuelBasicToggleAuto" class="smol red">Fuel Autominer: OFF</button>
 							</div>
 						</div>
 					</td>
 					<td>
 						<div class="autodiv">
 							<div id="LEUrtAuto">
-								<button onclick="buyLEUAuto('reactor')" id="reactorLEUBuyAuto" class="smol red">Buy for 1e35 Energy</button>
+								<button onclick="buyLEUAuto('reactor')" id="reactorLEUBuyAuto" class="smol red">Buy for 1e25 Energy</button>
 								<button onclick="toggleLEUAuto('reactor')" id="reactorLEUToggleAuto" class="smol red">LEU-235 Reactor Autobuyer: OFF</button>
 							</div>
 							<div id="LEUturAuto">

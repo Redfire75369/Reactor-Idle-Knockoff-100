@@ -11,8 +11,8 @@ function getDrainCost() {
 }
 
 function drainOcean() {
-	if (player.money.gt(getDrainCost())) {
-		player.money = player.money.sub(getDrainCost());
+	if (canBuy(getDrainCost())) {
+		buy(getDrainCost());
 		player.totalWater = player.totalWater.mul(10);
 		player.water = player.totalWater.sub(player.steam);
 	}
@@ -27,5 +27,5 @@ function simulateSteam(tick = 50) {
 function updateUISteam() {
 	document.getElementById("water").innerText = f(player.water);
 	document.getElementById("steam").innerText = f(player.steam);
-	document.getElementById("drainCost").innerText = f(getDrainCost());
+	document.getElementById("drainCost").innerText = formatCost(f(getDrainCost()));
 }

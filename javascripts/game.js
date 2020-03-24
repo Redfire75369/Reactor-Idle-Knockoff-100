@@ -27,7 +27,11 @@ function getDefault() {
 			11: false,
 			12: false,
 			13: false,
-			14: false
+			14: false,
+			21: false,
+			22: false,
+			23: false,
+			24: false
 		},
 		
 		automation: {
@@ -42,6 +46,11 @@ function getDefault() {
 				coolingRod: [0, false],
 			}
 		},
+		
+		meltdown: {
+			corium: E(0),
+			amt: 0
+		},
 
 		
 		options: {
@@ -55,16 +64,30 @@ function getDefault() {
 }
 
 const zero = E(0);
+const infinity = ExpantaNum.pow(2, 1024);
 const types = ["LEU"];
 var player = getDefault();
 
+function canBuy(cost) {
+	return (!player.milestones[23]) ? player.money.gte(cost) : player.energy.gte(cost);
+}
+
+function buy(cost) {
+	if (canBuy(cost)) {
+		if (!player.milestones[23]) {
+			player.money = player.money.sub(cost);
+		} else {
+			player.energy = player.energy.sub(cost);
+		}
+	}
+}
+
 function titleCase(string) {
-  var sentence = string.toLowerCase().split(" ");
+  let sentence = string.toLowerCase().split(" ");
   for(let i = 0; i < sentence.length; i++){
 	 sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
   }
-   document.write(sentence.join(" "));
-   return sentence;
+   return sentence.join(" ");
 }
 
 function hardReset() {
@@ -77,9 +100,7 @@ setInterval(function(){
 	updateUIEnergy();
 	updateUISteam();
 	updateUIFuel();
-	updateUIReactors();
-	updateUITurbines();
-	updateUICoolingRods();
+	updateUIProduction();
 	updateUIMilestones();
 	updateUIAuto();
 }, 100)

@@ -47,6 +47,16 @@ body {
 	border-radius: 8px;
 }
 
+.meltdownbtn {
+	width: 210px;
+	height: 70px;
+	font-size: 10px;
+	border: 2px solid green;
+	border-radius: 6px;
+	color: #d0d0d0;
+	background: #202020;
+}
+
 /* Reinhardt's magic button styles */
 
 .sbb {

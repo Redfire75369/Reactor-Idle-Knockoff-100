@@ -1,3 +1,7 @@
+function formatCost(cost) {
+	return player.milestones[23] ? cost + " J" : "$" + cost;
+}
+
 function f(num, digits = 1) {
   if (digits > 0) num = ExpantaNum(num).mul(Math.pow(10,digits)).floor().div(Math.pow(10,digits));
   else num = ExpantaNum(num).floor();

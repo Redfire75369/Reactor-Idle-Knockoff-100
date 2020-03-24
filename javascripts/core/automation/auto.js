@@ -36,13 +36,13 @@ function buyLEUAuto(type) {
 }
 
 function toggleBasicAuto(type) {
-	if (player.automation.basic[type][0] == 1) {
+	if (player.automation.basic[type][0] >= 1) {
 		player.automation.basic[type][1] = !player.automation.basic[type][1];
 	}
 }
 
 function toggleLEUAuto(type) {
-	if (player.automation.LEU[type][0] == 1) {
+	if (player.automation.LEU[type][0] >= 1) {
 		player.automation.LEU[type][1] = !player.automation.LEU[type][1];
 	}
 }
@@ -69,7 +69,6 @@ function simulateAuto() {
 }
 
 function updateUIAuto() {
-	document.getElementById("energyJ").style.display = player.automation.basic.energy[1] ? "none" : "inline-block";
 	document.getElementById("sellEnergy").style.display = player.automation.basic.energy[1] ? "none" : "inline-block";
 	document.getElementById("fuelBasicAutoCost").innerText = f(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]));
 	
@@ -79,14 +78,17 @@ function updateUIAuto() {
 		}
 		if (document.getElementById(basicAuto[i] + "BasicToggleAuto").style.display != "none") {
 			document.getElementById(basicAuto[i] + "BasicToggleAuto").className = player.automation.basic[basicAuto[i]][1] ? "smol green" : "smol red";
-			//document.getElementById(basicAuto[i] + "BasicToggleAuto").innerText  = titleCase(basicAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
+			document.getElementById(basicAuto[i] + "BasicToggleAuto").innerText  = titleCase(basicAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
 		}
 	}
 	for (let i = 0; i < LEUAuto.length; i++) {
 		document.getElementById(LEUAuto[i] + "LEUBuyAuto").style.display = player.automation.LEU[LEUAuto[i]][0] != 1 ? "inline-block" : "none";
 		if (document.getElementById(LEUAuto[i] + "LEUToggleAuto").style.display != "none") {
 			document.getElementById(LEUAuto[i] + "LEUToggleAuto").className = player.automation.LEU[LEUAuto[i]][1] ? "smol green" : "smol red";
-			//document.getElementById(LEUAuto[i] + "LEUToggleAuto").innerText  = LEUAuto[i] == "coolingRod" ? "LEU-235 Cooling Rod Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF" : "LEU-235" + titleCase(LEUAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
+			document.getElementById(LEUAuto[i] + "LEUToggleAuto").innerText  = LEUAuto[i] == "coolingRod" ? "LEU-235 Cooling Rod Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF" : "LEU-235" + titleCase(LEUAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
 		}
 	}
+	document.getElementById("energyBasicToggleAuto").innerText = player.automation.basic["energy"][1] ? "Energy Autoseller: ON" : "Energy Autoseller: OFF";
+	document.getElementById("waterBasicToggleAuto").innerText = player.automation.basic["water"][1] ? "Water Autodrainer: ON" : "Water Autodrainer: OFF";
+	document.getElementById("fuelBasicToggleAuto").innerText = player.automation.basic["fuel"][1] ? "Fuel Autominer: ON" : "Fuel Autominer: OFF";
 }

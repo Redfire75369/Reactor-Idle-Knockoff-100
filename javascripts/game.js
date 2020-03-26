@@ -4,7 +4,7 @@ function E(x) {
 
 function getDefault() {
 	return {
-		energy: infinity,
+		energy: E(0),
 
 		heat: E(0),
 		drain: E(0),

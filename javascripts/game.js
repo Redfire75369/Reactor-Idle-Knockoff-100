@@ -4,25 +4,27 @@ function E(x) {
 
 function getDefault() {
 	return {
-		money: E(0),
-		energy: E(0),
-		
+		energy: infinity,
+
 		heat: E(0),
-		totalWater: E(100),
+		drain: E(0),
 		water: E(100),
 		steam: E(0),
 		
+		eff: E(1),
+
 		fuel: {
 			amount: [E(1)],
-			conc: [3],
+			conc: [1],
 		},
-		
+
 		production: {
 			reactor: [E(1)],
 			turbine: [E(1)],
-			coolingRod: [E(1)]
+			coolingRod: [E(1)],
+			centrifuge: [E(1)]
 		},
-		
+
 		milestones: {
 			11: false,
 			12: false,
@@ -33,7 +35,7 @@ function getDefault() {
 			23: false,
 			24: false
 		},
-		
+
 		automation: {
 			basic: {
 				energy: [0, false],
@@ -46,20 +48,30 @@ function getDefault() {
 				coolingRod: [0, false],
 			}
 		},
-		
+
 		meltdown: {
 			corium: E(0),
-			amt: 0
+			amt: 0,
+
+			ups : {
+				11: false,
+				12: false,
+				13: false,
+				21: false,
+				22: false,
+				23: false
+			}
 		},
 
-		
 		options: {
 		},
-		
+
 		navigation: {
 			main: "production",
 			production: "LEU"
-		}
+		},
+
+		time: 0
 	};
 }
 
@@ -68,51 +80,32 @@ const infinity = ExpantaNum.pow(2, 1024);
 const types = ["LEU"];
 var player = getDefault();
 
-function canBuy(cost) {
-	return (!player.milestones[23]) ? player.money.gte(cost) : player.energy.gte(cost);
-}
-
-function buy(cost) {
-	if (canBuy(cost)) {
-		if (!player.milestones[23]) {
-			player.money = player.money.sub(cost);
-		} else {
-			player.energy = player.energy.sub(cost);
-		}
-	}
-}
-
-function titleCase(string) {
-  let sentence = string.toLowerCase().split(" ");
-  for(let i = 0; i < sentence.length; i++){
-	 sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
-  }
-   return sentence.join(" ");
-}
-
 function hardReset() {
 	player = getDefault();
 	player.navigation.main = "options";
 }
 
 setInterval(function(){
-	updateUIMoney();
 	updateUIEnergy();
 	updateUISteam();
 	updateUIFuel();
 	updateUIProduction();
 	updateUIMilestones();
 	updateUIAuto();
+	updateUIEff();
+	updateUIMeltdown();
+	updateUIMeltdownUps();
 }, 100)
 
 
 setInterval(function() {
 	checkMilestones();
-	simulateSteam(100);
-	simulateHeat(100);
-	simulateEnergy(100);
+	simulateSteam(50);
+	simulateHeat(50);
+	simulateEnergy(50);
 	simulateAuto();
-}, 100)
+	player.time += 50;
+}, 50)
 
 setInterval(function() {
 	saveGame();

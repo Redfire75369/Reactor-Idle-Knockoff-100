@@ -1,5 +1,5 @@
 function condenseSteam() {
-	let x = generateEnergy().div(player.production.turbine[0]).div(ExpantaNum.pow(1.05, player.production.coolingRod[0].mul(getCoolingRodMult(0))));
+	let x = generateEnergy().div(player.production.turbine[0]).div(E(1.10).pow(player.production.coolingRod[0].mul(getCoolingRodMult(0))).mul(getEff()));
 	return player.steam.gt(x) ? x : player.steam;
 }
 function generateSteam() {
@@ -7,25 +7,26 @@ function generateSteam() {
 }
 
 function getDrainCost() {
-	return E(1).mul(player.totalWater);
+	return E(10).pow(player.drain.add(2));
+}
+function canBuyDrain() {
+	return player.energy.gte(getDrainCost());
 }
 
 function drainOcean() {
-	if (canBuy(getDrainCost())) {
-		buy(getDrainCost());
-		player.totalWater = player.totalWater.mul(10);
-		player.water = player.totalWater.sub(player.steam);
+	if (canBuyDrain()) {
+		player.energy = player.energy.sub(getDrainCost());
+		player.drain = player.drain.add(1);
 	}
 }
 
 function simulateSteam(tick = 50) {
 	player.steam = player.steam.add(generateSteam().mul(tick / 1000));
 	player.steam = player.steam.sub(condenseSteam().mul(tick / 1000));
-	player.water = player.water.add(condenseSteam().mul(tick / 1000));
-	player.water = player.water.sub(generateSteam().mul(tick / 1000));
+	player.water = E(10).pow(player.drain.add(2)).sub(player.steam);
 }
 function updateUISteam() {
-	document.getElementById("water").innerText = f(player.water);
-	document.getElementById("steam").innerText = f(player.steam);
-	document.getElementById("drainCost").innerText = formatCost(f(getDrainCost()));
+	document.getElementById("water").innerText = notation(player.water);
+	document.getElementById("steam").innerText = notation(player.steam);
+	document.getElementById("drainCost").innerText = notation(getDrainCost());
 }

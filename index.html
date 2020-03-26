@@ -8,7 +8,7 @@
 		
 		<link rel="stylesheet" href="style.css">
 		
-		<script src="javascripts/libs/expantanum.min.js" defer></script>
+		<script src="javascripts/libs/ExpantaNum.js" defer></script>
 		<script src="javascripts/libs/lodash.min.js" defer></script>
 		<script src="javascripts/libs/mousetrap.min.js" defer></script>
 		<script src="javascripts/libs/clipboard.js" defer></script>
@@ -24,6 +24,8 @@
 		<script src="javascripts/core/milestones/fission.js" defer></script>
 		<script src="javascripts/core/automation/auto.js" defer></script>
 		<script src="javascripts/core/meltdown/meltdown.js" defer></script>
+		<script src="javascripts/core/meltdown/efficiency.js" defer></script>
+		<script src="javascripts/core/meltdown/upgrades.js" defer></script>
 		<script src="javascripts/options.js" defer></script> 
 		<script src="javascripts/navigation.js" defer></script> 
 		<script src="javascripts/init_game.js" defer></script> 
@@ -33,18 +35,24 @@
 			<p id="coriumAmt" class="text" style="color: green">You have <span id="corium">0.00</span> Corium.</p> </br>
 			<button onclick="meltdown()" id="meltdown" class="meltdownbtn">Meltdown for <span id="coriumOnMeltdown">1</span> Corium</button>
 		</div>
+		
 		<div>
-			<p id="money$">You have $<span id="money">0.00</span>.</p>
-			<p>You have stored <span id="energy">0.00</span>J.</p>
-			<button onclick="sellEnergy()" id="sellEnergy" class="sbb height lightgrey">
-				Sell energy for money
-			</button>
+			<p align="center">You have <span id="energy">0.00</span> J of energy.</p>
 		</div>
+		
+		<div align="center" style="width:100vw; font-size: 12px">
+			<div id="effDiv" align="center">
+				<p align="center">Increase efficiency of all mines by <span id="effMult">25.00</span>%</p>
+				<button onclick="buyEff()" class="height lightgrey" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
+				<p align="center">Efficiency: <span id="eff">1000</span></p>
+			</div>
+		</div> 
+		
 		<div>
 			You have <span id="water">1000.0</span>L of Water and <span id="steam">0.0</span>L of Steam.
-			<span class="lh40"><button onclick="drainOcean()" class="sbb height blue">
+			<button onclick="drainOcean()" class="sbb height blue">
 				Drain ocean to acquire more water for <span id="drainCost"></span>
-				</button></span>
+			</button>
 		</div>
 		<div id="navibtn" class="center">
 			<table class="center">
@@ -53,6 +61,7 @@
 						<button onclick="showMainTab('production')" id="prodbtn" class="navibtn sbb blue smol">Production</button>
 						<button onclick="showMainTab('milestones')" id="milestonesbtn" class="navibtn sbb yellow smol">Milestones</button>
 						<button onclick="showMainTab('automation')" id="autobtn" class="navibtn sbb red smol">Automation</button>
+						<button onclick="showMainTab('meltdownt')" id="meltdownbtn" class="navibtn sbb green smol">Meltdown</button>
 						<button onclick="showMainTab('options')" id="optionsbtn" class="navibtn sbb green smol">Options</button>
 					</td>
 				</tr>
@@ -63,7 +72,7 @@
 				<div>
 					You have <span id="LEU_fuel">1.00</span> grams of LEU-235 fuel.
 					<button onclick="mineFuel(0, 1)" id="mineLEU" class="sbb height green smol center">
-						Mine more fuel for $10.00
+						Mine more fuel for 10.0 J
 					</button>
 				</div>
 				<div>
@@ -80,7 +89,7 @@
 							</td>
 							<td>
 								<button onclick="buyReactor(0)" class="sbb height lightgrey">
-									Buy LEU Reactor for <span id="LEU_rtcost">1.00</span>
+									Buy LEU Reactor for <span id="LEU_rtcost">1.00</span> J
 								</button>
 							</td>
 						</tr>
@@ -93,7 +102,7 @@
 							</td>
 							<td>
 								<button onclick="buyTurbine(0)" class="sbb height lightgrey">
-									Buy LEU Turbine for <span id="LEU_turcost">1.00</span>
+									Buy LEU Turbine for <span id="LEU_turcost">1.00</span> J
 								</button>
 							</td>
 						</tr>
@@ -122,7 +131,7 @@
 				<tr>
 					<td class="milestonetd">
 						<div id="milestone11" class="milestonelocked">
-							Get $10.00 <br>
+							Get 10.00 J <br>
 							Reward: Unlock fuel mining
 						</div>
 					</td class="milestonetd">
@@ -140,7 +149,7 @@
 					</td>
 					<td class="milestonetd">
 						<div id="milestone14" class="milestonelocked">
-							Reach 1.332e18 Litres of Water<br>
+							Reach 1.332e18ℓ of Water<br>
 							Reward: Unlock Ocean Autodrainer and LEU-235 Fuel Autominer
 						</div>
 					</td>
@@ -148,7 +157,7 @@
 				<tr>
 					<td class="milestonetd">
 						<div id="milestone21" class="milestonelocked">
-							Reach 1e20 Multiplier on LEU-235 Reactors<br>
+							Reach 1e20 Multiplier on LEU-235 Turbines<br>
 							Reward: Unlock LEU-235 Reactor and Turbine Autobuyer
 						</div>
 					</td>
@@ -161,7 +170,7 @@
 					<td class="milestonetd">
 						<div id="milestone23" class="milestonelocked">
 							Reach 100000 g LEU-235 Fuel<br>
-							Reward: You can buy buildings with energy instead of money and multiplier from milestones is greatly increased
+							Reward: Multiplier from milestones is greatly increased
 						</div>
 					</td>
 					<td class="milestonetd">
@@ -219,6 +228,53 @@
 					</td>
 				</tr>
 			</table>
+		</div>
+		
+		<div id="meltdownt">
+			<div id="meltdownUps">
+				<table>
+					<tr>
+						<td>
+							<button onclick="buyMeltdownUp(11)" id="meltdownUp11">
+								All production buildings get a multiplier based on total time played<br>
+								Cost: 1 Corium
+							</button>
+						</td>
+						<td>
+							<button onclick="buyMeltdownUp(12)" id="meltdownUp12">
+								All production buildings get a multiplier based on current energy<br>
+								Cost: 2 Corium
+							</button>
+						</td>
+						<td>
+							<button onclick="buyMeltdownUp(13)" id="meltdownUp13">
+								All production buildings get a multiplier based on fuel autominers<br>
+								Cost: 3 Corium
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button onclick="buyMeltdownUp(21)" id="meltdownUp21">
+								Reactors and turbines boost each other<br>
+								Cost: 100 Corium
+							</button>
+						</td>
+						<td>
+							<button onclick="buyMeltdownUp(22)" id="meltdownUp22">
+								Cost scaling of all production buildings is halved<br>
+								Cost: 250 Corium
+							</button>
+						</td>
+						<td>
+							<button onclick="buyMeltdownUp(23)" id="meltdownUp23">
+								All production buildings' multipliers are raised to a power based on corium and energy<br>
+								Cost: 1000 Corium
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		
 		<div id="options">

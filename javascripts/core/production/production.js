@@ -7,34 +7,97 @@ function getTurbineCost(type) {
 function getCoolingRodCost(type) {
 	return E(10000).mul(E(100).pow(player.production.coolingRod[type]));
 }
+function getCentrifugeCost(type) {
+	return E(100).mul(E(20).pow(player.production.centrifuge[type]));
+}
+
+function canBuyReactor(type) {
+	return player.energy.gte(getReactorCost(type));
+}
+function canBuyTurbine(type) {
+	return player.energy.gte(getTurbineCost(type));
+}
+function canBuyCoolingRod(type) {
+	return player.energy.gte(getCoolingRodCost(type));
+}
+function canBuyCentrifuge(type) {
+	return player.meltdown.corium.gte(getCentrifugeCost(type));
+}
+
 
 function buyReactor(type) {
-	if (canBuy(getReactorCost(type))) {
-		buy(getReactorCost(type));
+	if (canBuyReactor(type)) {
+		player.energy = player.energy.sub(getReactorCost(type));
 		player.production.reactor[type] = player.production.reactor[type].add(1);
 	}
 }
 function buyTurbine(type) {
-	if (canBuy(getTurbineCost(type))) {
-		buy(getTurbineCost(type));
+	if (canBuyTurbine(type)) {
+		player.energy = player.energy.sub(getTurbineCost(type));
 		player.production.turbine[type] = player.production.turbine[type].add(1);
 	}
 }
 function buyCoolingRod(type) {
-	if (canBuy(getCoolingRodCost(type))) {
-		buy(getCoolingRodCost(type));
+	if (canBuyCoolingRod(type)) {
+		player.energy = player.energy.sub(getCoolingRodCost(type));
 		player.production.coolingRod[type] = player.production.coolingRod[type].add(1);
+	}
+}
+function buyCentrifuge(type) {
+	if (canBuyCentrifuge(type)) {
+		player.corium = player.corium.sub(getCentrifugeCost());
+		player.production.centrifuge[type] = player.production.centrifuge[type].add(1);
+	}
+}
+
+function buyMaxReactor(type) {
+	if (canBuyReactor(type)) {
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 1, 10, player.production.reactor[type]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1, 10, player.production.reactor[type]));
+		player.production.reactor[type] = player.production.reactor[type].add(x);
+	}
+}
+function buyMaxTurbine(type) {
+	if (canBuyTurbine(type)) {
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 1, 10, player.production.turbine[type]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1, 10, player.production.turbine[type]));
+		player.production.turbine[type] = player.production.turbine[type].add(x);
+	}
+}
+function buyMaxCoolingRod(type) {
+	if (canBuyCoolingRod(type)) {
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 10000, 100, player.production.coolingRod[type]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 10000, 100, player.production.coolingRod[type]));
+		player.production.coolingRod[type] = player.production.coolingRod[type].add(x);
+	}
+}
+function buyMaxCentrifuge(type) {
+	if (canBuyCentrifuge(type)) {
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 100, 20, player.production.centrifuge[type]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 100, 20, player.production.coolingRod[type]));
+		player.production.coolingRod[type] = player.production.coolingRod[type].add(x);
 	}
 }
 
 function getReactorMult(type) {
-	return E(4).pow(player.production.reactor[type].sub(1)).mul(getMilestoneMult());
+	let ret = E(4).pow(player.production.reactor[type].sub(1)).mul(getMilestoneMult());
+	ret = ret.mul(getTotalMeltdownUpMult());
+	ret = player.meltdown.ups[22] ? ret.mul(ExpantaNum.max(1, E(2).pow(player.production.turbine[type]))) : ret;
+	ret = player.meltdown.ups[23] ? ret.pow(player.meltdown.corium.logBase(10).div(10).max(0)) : ret;
+	return ret;
 }
 function getTurbineMult(type) {
-	return E(4).pow(player.production.turbine[type].sub(1)).mul(getMilestoneMult());
+	let ret = E(4).pow(player.production.turbine[type].sub(1)).mul(getMilestoneMult());
+	ret = ret.mul(getTotalMeltdownUpMult());
+	ret = player.meltdown.ups[22] ? ret.mul(ExpantaNum.max(1, E(2.1).pow(player.production.reactor[type]))) : ret;
+	ret = player.meltdown.ups[23] ? ret.pow(player.meltdown.corium.logBase(10).div(10).max(1)) : ret;
+	return ret;
 }
 function getCoolingRodMult(type) {
 	return E(5).pow(player.production.coolingRod[type].sub(1)).mul(getMilestoneMult());
+}
+function getCentrifugeMult(type) {
+	return E(3).pow(player.production.centrifuge[type].sub(1)).mul(getMilestoneMult());
 }
 
 function simulateProduction(tick = 50) {
@@ -42,14 +105,14 @@ function simulateProduction(tick = 50) {
 }
 function updateUIProduction() {
 	for (let i = 0; i < types.length; i++) {
-		document.getElementById(types[i] + "_rt").innerText = f(player.production.reactor[i]);
-		document.getElementById(types[i] + "_rtmult").innerText = f(getReactorMult(i));
-		document.getElementById(types[i] + "_rtcost").innerText = formatCost(f(getReactorCost(i)));
-		document.getElementById(types[i] + "_tur").innerText = f(player.production.turbine[i]);
-		document.getElementById(types[i] + "_turmult").innerText = f(getTurbineMult(i));
-		document.getElementById(types[i] + "_turcost").innerText = formatCost(f(getTurbineCost(i)));
-		document.getElementById(types[i] + "_cr").innerText = f(player.production.coolingRod[i]);
-		document.getElementById(types[i] + "_crmult").innerText = f(getCoolingRodMult(i));
-		document.getElementById(types[i] + "_crcost").innerText = formatCost(f(getCoolingRodCost(i)));
+		document.getElementById(types[i] + "_rt").innerText = notation(player.production.reactor[i]);
+		document.getElementById(types[i] + "_rtmult").innerText = notation(getReactorMult(i));
+		document.getElementById(types[i] + "_rtcost").innerText = notation(getReactorCost(i));
+		document.getElementById(types[i] + "_tur").innerText = notation(player.production.turbine[i]);
+		document.getElementById(types[i] + "_turmult").innerText = notation(getTurbineMult(i));
+		document.getElementById(types[i] + "_turcost").innerText = notation(getTurbineCost(i));
+		document.getElementById(types[i] + "_cr").innerText = notation(player.production.coolingRod[i]);
+		document.getElementById(types[i] + "_crmult").innerText = notation(getCoolingRodMult(i));
+		document.getElementById(types[i] + "_crcost").innerText = notation(getCoolingRodCost(i));
 	}
 }

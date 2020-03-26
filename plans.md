@@ -2,20 +2,20 @@
 
 ## Prestiges
 - Meltdown
+- Other
 - Kugelblitz
 
-## Fission Milestones
-
 ## Meltdown Mechanics
+- Meltdown Upgrades
+- Moderators
+- Coolants
+- Centrifuge
 
-### Fuel Centrifugation
-
-### Element Transfusion/Nucleosynthesis
+## Other Mechanics
+- Nucleosynthesis
 
 
 ## Kugelblitz Mechanics
-
-### Particle Acceleration
-
-### Fusion Reactors
-### Neutrino Capture
+- Particle Acceleration
+- Fusion Reactors
+- Neutrino Capture

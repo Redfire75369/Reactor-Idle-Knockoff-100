@@ -1,8 +1,8 @@
 # Rubrics of Incremental Tournament
 
 ## Number Size (Out of 10)
-- 10^^10 is the bare minimum, but try to reach Graham's number and beyond. <br/>
-  - Currently: E1#3
+- E10#3 is the bare minimum, but try to reach Graham's number and beyond.
+  - Currently: E10#2
 - Using Own Engine
 	- ❎
 

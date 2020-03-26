@@ -1,17 +1,20 @@
-function formatCost(cost) {
-	return player.milestones[23] ? cost + " J" : "$" + cost;
+function notation(num, dp = 1) {
+	switch ("Scientific") {
+		case "Scientific":
+			return scientific(num, dp)
+	}
 }
 
-function f(num, digits = 1) {
-  if (digits > 0) num = ExpantaNum(num).mul(Math.pow(10,digits)).floor().div(Math.pow(10,digits));
-  else num = ExpantaNum(num).floor();
-  return N['sci'](num);
-}
-
-let N = {};
-
-N.sci = function(num) {
-  if (num.lt(1e6)) return num.toString();
-  if (num.lt('ee6')) return Math.pow(10, num.log10().toNumber() % 1).toFixed(2).replace(/([0-9]+(.[0-9]+[1-9])?)(.?0+$)/, '$1') + 'e' + num.log10().floor().toString();
-  return num.toHyperE();
+function scientific(num, dp) {
+	if (num.lt(E("e6"))) {
+		return num.toFixed(dp).toString();
+	} else if (num.lt(E("eee6"))) {
+		if (num.div(E(10).pow(num.logBase(10).floor())).lt(9.99)) {
+			return (num.div(E(10).pow(num.logBase(10).floor())).toFixed(dp)) + "e" + scientific(num.logBase(10).floor(), dp);
+		} else {
+			return E(1).toFixed(dp) + "e" + scientific(num.logBase(10).floor().add(1), dp);
+		}
+	} else {
+		return num.floor().toHyperE();
+	}
 }

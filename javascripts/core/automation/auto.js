@@ -4,15 +4,15 @@ const LEUAuto = ["reactor", "turbine", "coolingRod"];
 function buyBasicAuto(type) {
 	switch (type) {
 		case "energy":
-			if (player.money.gte(1e8) && player.automation.basic.energy[0] != 1) { 
+			if (player.energy.gte(1e8) && player.automation.basic.energy[0] != 1) { 
 				player.automation.basic.energy[0] = 1;
 			}
 		case "water":
-			if (player.money.gte(1e8) && player.automation.basic.water[0] != 1) { 
+			if (player.energy.gte(1e8) && player.automation.basic.water[0] != 1) { 
 				player.automation.basic.water[0] = 1;
 			}
 		case "fuel":
-			if (player.money.gte(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]))) { 
+			if (player.energy.gte(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]))) { 
 				player.automation.basic.fuel[0] += 1;
 			}
 		
@@ -21,15 +21,15 @@ function buyBasicAuto(type) {
 function buyLEUAuto(type) {
 	switch (type) {
 		case "reactor":
-			if (player.money.gte(1e25) && player.automation.LEU.reactor[0] != 1) { 
+			if (player.energy.gte(1e25) && player.automation.LEU.reactor[0] != 1) { 
 				player.automation.LEU.reactor[0] = 1;
 			}
 		case "turbine":
-			if (player.money.gte(1e30) && player.automation.LEU.turbine[0] != 1) { 
+			if (player.energy.gte(1e30) && player.automation.LEU.turbine[0] != 1) { 
 				player.automation.LEU.turbine[0] = 1;
 			}
 		case "coolingRod":
-			if (player.money.gte(1e50) && player.automation.LEU.coolingRod[0] != 1) { 
+			if (player.energy.gte(1e50) && player.automation.LEU.coolingRod[0] != 1) { 
 				player.automation.LEU.coolingRod[0] = 1;
 			}
 	}
@@ -48,9 +48,6 @@ function toggleLEUAuto(type) {
 }
 
 function simulateAuto() {
-	if (player.automation.basic.energy[1]) {
-		sellEnergy();
-	}
 	if (player.automation.basic.water[1]) {
 		drainOcean();
 	}
@@ -69,8 +66,7 @@ function simulateAuto() {
 }
 
 function updateUIAuto() {
-	document.getElementById("sellEnergy").style.display = player.automation.basic.energy[1] ? "none" : "inline-block";
-	document.getElementById("fuelBasicAutoCost").innerText = f(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]));
+	document.getElementById("fuelBasicAutoCost").innerText = notation(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]));
 	
 	for (let i = 0; i < basicAuto.length; i++) {
 		if (!(basicAuto[i].includes("fuel"))) {
@@ -78,17 +74,18 @@ function updateUIAuto() {
 		}
 		if (document.getElementById(basicAuto[i] + "BasicToggleAuto").style.display != "none") {
 			document.getElementById(basicAuto[i] + "BasicToggleAuto").className = player.automation.basic[basicAuto[i]][1] ? "smol green" : "smol red";
-			document.getElementById(basicAuto[i] + "BasicToggleAuto").innerText  = titleCase(basicAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
 		}
 	}
 	for (let i = 0; i < LEUAuto.length; i++) {
 		document.getElementById(LEUAuto[i] + "LEUBuyAuto").style.display = player.automation.LEU[LEUAuto[i]][0] != 1 ? "inline-block" : "none";
 		if (document.getElementById(LEUAuto[i] + "LEUToggleAuto").style.display != "none") {
 			document.getElementById(LEUAuto[i] + "LEUToggleAuto").className = player.automation.LEU[LEUAuto[i]][1] ? "smol green" : "smol red";
-			document.getElementById(LEUAuto[i] + "LEUToggleAuto").innerText  = LEUAuto[i] == "coolingRod" ? "LEU-235 Cooling Rod Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF" : "LEU-235" + titleCase(LEUAuto[i]) + "Autobuyer: " + player.automation.basic[basicAuto[i]][1] ? "ON" : "OFF";
 		}
 	}
 	document.getElementById("energyBasicToggleAuto").innerText = player.automation.basic["energy"][1] ? "Energy Autoseller: ON" : "Energy Autoseller: OFF";
 	document.getElementById("waterBasicToggleAuto").innerText = player.automation.basic["water"][1] ? "Water Autodrainer: ON" : "Water Autodrainer: OFF";
 	document.getElementById("fuelBasicToggleAuto").innerText = player.automation.basic["fuel"][1] ? "Fuel Autominer: ON" : "Fuel Autominer: OFF";
+	document.getElementById("reactorLEUToggleAuto").innerText  = player.automation.LEU["reactor"][1] ? "LEU-235 Reactor Autobuyer: ON" : "LEU-235 Reactor Autobuyer: OFF";
+	document.getElementById("turbineLEUToggleAuto").innerText  = player.automation.LEU["turbine"][1] ? "LEU-235 Turbine Autobuyer: ON" : "LEU-235 Turbine Autobuyer: OFF";
+	document.getElementById("coolingRodLEUToggleAuto").innerText  = player.automation.LEU["coolingRod"][1] ? "LEU-235 Cooling Rod Autobuyer: ON" : "LEU-235 Cooling Rod Autobuyer: OFF";
 }

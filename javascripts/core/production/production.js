@@ -1,14 +1,18 @@
 function getReactorCost(type) {
-	return E(1).mul(E(10).pow(player.production.reactor[type]));
+	let r = player.meltdown.ups[21] ? E(5) : E(10);
+	return E(1).mul(r.pow(player.production.reactor[type]));
 }
 function getTurbineCost(type) {
-	return E(1).mul(E(10).pow(player.production.turbine[type]));
+	let r = player.meltdown.ups[21] ? E(5) : E(10);
+	return E(1).mul(r.pow(player.production.turbine[type]));
 }
 function getCoolingRodCost(type) {
-	return E(10000).mul(E(100).pow(player.production.coolingRod[type]));
+	let r = player.meltdown.ups[21] ? E(50) : E(100);
+	return E(10000).mul(r.pow(player.production.coolingRod[type]));
 }
 function getCentrifugeCost(type) {
-	return E(100).mul(E(20).pow(player.production.centrifuge[type]));
+	let r = player.meltdown.ups[21] ? E(20) : E(40);
+	return E(100).mul(r.pow(player.production.centrifuge[type]));
 }
 
 function canBuyReactor(type) {
@@ -52,29 +56,33 @@ function buyCentrifuge(type) {
 
 function buyMaxReactor(type) {
 	if (canBuyReactor(type)) {
-		let x = ExpantaNum.affordGeometricSeries(player.energy, 1, 10, player.production.reactor[type]);
-		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1, 10, player.production.reactor[type]));
+		let r = player.meltdown.ups[21] ? E(5) : E(10);
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 1, r, player.production.reactor[type]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1, r, player.production.reactor[type]));
 		player.production.reactor[type] = player.production.reactor[type].add(x);
 	}
 }
 function buyMaxTurbine(type) {
 	if (canBuyTurbine(type)) {
-		let x = ExpantaNum.affordGeometricSeries(player.energy, 1, 10, player.production.turbine[type]);
-		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1, 10, player.production.turbine[type]));
+		let r = player.meltdown.ups[21] ? E(5) : E(10);
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 1, r, player.production.turbine[type]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1, r, player.production.turbine[type]));
 		player.production.turbine[type] = player.production.turbine[type].add(x);
 	}
 }
 function buyMaxCoolingRod(type) {
 	if (canBuyCoolingRod(type)) {
-		let x = ExpantaNum.affordGeometricSeries(player.energy, 10000, 100, player.production.coolingRod[type]);
-		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 10000, 100, player.production.coolingRod[type]));
+		let r = player.meltdown.ups[21] ? E(50) : E(100);
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 10000, r, player.production.coolingRod[type]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 10000, r, player.production.coolingRod[type]));
 		player.production.coolingRod[type] = player.production.coolingRod[type].add(x);
 	}
 }
 function buyMaxCentrifuge(type) {
 	if (canBuyCentrifuge(type)) {
-		let x = ExpantaNum.affordGeometricSeries(player.energy, 100, 20, player.production.centrifuge[type]);
-		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 100, 20, player.production.coolingRod[type]));
+		let r = player.meltdown.ups[21] ? E(20) : E(40);
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 100, r, player.production.centrifuge[type]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 100, r, player.production.coolingRod[type]));
 		player.production.coolingRod[type] = player.production.coolingRod[type].add(x);
 	}
 }

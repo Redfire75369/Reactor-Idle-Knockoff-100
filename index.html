@@ -6,16 +6,14 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<link rel="stylesheet" href="style.css">
+		<link id="style" rel="stylesheet" href="style.css">
 		
 		<script src="javascripts/libs/ExpantaNum.js" defer></script>
-		<script src="javascripts/libs/lodash.min.js" defer></script>
 		<script src="javascripts/libs/mousetrap.min.js" defer></script>
 		<script src="javascripts/libs/clipboard.js" defer></script>
 		<script src="javascripts/notation.js" defer></script>
 		<script src="javascripts/game.js" defer></script>
 		<script src="javascripts/saveload.js" defer></script>
-		<script src="javascripts/core/money.js" defer></script>
 		<script src="javascripts/core/energy.js" defer></script>
 		<script src="javascripts/core/fuel.js" defer></script>
 		<script src="javascripts/core/heat.js" defer></script>
@@ -26,32 +24,37 @@
 		<script src="javascripts/core/meltdown/meltdown.js" defer></script>
 		<script src="javascripts/core/meltdown/efficiency.js" defer></script>
 		<script src="javascripts/core/meltdown/upgrades.js" defer></script>
+		<script src="javascripts/core/meltdown/moderator.js" defer></script>
 		<script src="javascripts/options.js" defer></script> 
 		<script src="javascripts/navigation.js" defer></script> 
 		<script src="javascripts/init_game.js" defer></script> 
 	</head>
 	<body>
 		<div align="center">
-			<p id="coriumAmt" class="text" style="color: green">You have <span id="corium">0.00</span> Corium.</p> </br>
+			<p id="coriumAmt" class="text" style="color: green">You have <span id="corium">0.0</span> Corium.</p> </br>
 			<button onclick="meltdown()" id="meltdown" class="meltdownbtn">Meltdown for <span id="coriumOnMeltdown">1</span> Corium</button>
 		</div>
 		
 		<div>
-			<p align="center">You have <span id="energy">0.00</span> J of energy.</p>
+			<p align="center">You have <span id="energy">0.0</span> J of energy.</p>
 		</div>
 		
 		<div align="center" style="width:100vw; font-size: 12px">
 			<div id="effDiv" align="center">
-				<p align="center">Increase efficiency of all mines by <span id="effMult">25.00</span>%</p>
+				<p align="center">Increase efficiency of all mines by <span id="effMult">25.0</span>%</p>
 				<button onclick="buyEff()" class="height lightgrey" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
 				<p align="center">Efficiency: <span id="eff">1000</span></p>
 			</div>
-		</div> 
+			<div id="modDiv"align="right">
+				<p>Current Moderator: <span id="moderator">None</span></p>
+				<button onclick="buyModerator()" class="height lightgrey">Buy <span id="modCost">Graphite Moderator for 4096</span> Corium</button>
+			</div>
+		</div>
 		
 		<div>
-			You have <span id="water">1000.0</span>L of Water and <span id="steam">0.0</span>L of Steam.
+			You have <span id="water">1000.0</span> ℓ of Water and <span id="steam">0.0</span> ℓ of Steam.
 			<button onclick="drainOcean()" class="sbb height blue">
-				Drain ocean to acquire more water for <span id="drainCost"></span>
+				Drain ocean to acquire more water for <span id="drainCost">100.0</span> J
 			</button>
 		</div>
 		<div id="navibtn" class="center">
@@ -70,52 +73,52 @@
 		<div id="production">
 			<div id="LEU">
 				<div>
-					You have <span id="LEU_fuel">1.00</span> grams of LEU-235 fuel.
+					You have <span id="LEU_fuel">1.0</span> grams of LEU-235 fuel.
 					<button onclick="mineFuel(0, 1)" id="mineLEU" class="sbb height green smol center">
 						Mine more fuel for 10.0 J
 					</button>
 				</div>
 				<div>
-					 The concentration of U-235 in your LEU-235 Fuel is <span id="LEU_conc">3.00</span>%
+					 The concentration of U-235 in your LEU-235 Fuel is <span id="LEU_conc">`1.0</span>%
 				</div>
 				<table>
 					<tbody>
 						<tr>
 							<td>
-								LEU-235 Reactor ×<span id="LEU_rtmult">1.00</span>
+								LEU-235 Reactor ×<span id="LEU_rtmult">1.0</span>
 							</td>
 							<td>
 								<span id="LEU_rt">0</span>
 							</td>
 							<td>
 								<button onclick="buyReactor(0)" class="sbb height lightgrey">
-									Buy LEU Reactor for <span id="LEU_rtcost">1.00</span> J
+									Buy LEU Reactor for <span id="LEU_rtcost">1.0</span> J
 								</button>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								LEU-235 Turbine ×<span id="LEU_turmult">1.00</span>
+								LEU-235 Turbine ×<span id="LEU_turmult">1.0</span>
 							</td>
 							<td>
 								<span id="LEU_tur">0</span>
 							</td>
 							<td>
 								<button onclick="buyTurbine(0)" class="sbb height lightgrey">
-									Buy LEU Turbine for <span id="LEU_turcost">1.00</span> J
+									Buy LEU Turbine for <span id="LEU_turcost">1.0</span> J
 								</button>
 							</td>
 						</tr>
 						<tr id="LEU_crrow">
 							<td>
-								LEU-235 Cooling Rod ×<span id="LEU_crmult">1.00</span>
+								LEU-235 Cooling Rod ×<span id="LEU_crmult">1.0</span>
 							</td>
 							<td>
 								<span id="LEU_cr">0</span>
 							</td>
 							<td>
 								<button onclick="buyCoolingRod(0)" class="sbb height lightgrey">
-									Buy LEU Cooling Rod for <span id="LEU_crcost">1.00</span>
+									Buy LEU Cooling Rod for <span id="LEU_crcost">1.0</span>
 								</button>
 							</td>
 						</tr>
@@ -126,18 +129,18 @@
 		
 		<div id="milestones">
 			Each milestone gives a 2x multiplier to all production <br>
-			Current multiplier from milestones: <span id="milestoneMult">1.00</span>×
+			Current multiplier from milestones: <span id="milestoneMult">1.0</span>×
 			<table>
 				<tr>
 					<td class="milestonetd">
 						<div id="milestone11" class="milestonelocked">
-							Get 10.00 J <br>
+							Get 10.0 J <br>
 							Reward: Unlock fuel mining
 						</div>
 					</td class="milestonetd">
 					<td class="milestonetd">
 						<div id="milestone12" class="milestonelocked">
-							Get 100 grams of LEU-235 Fuel <br>
+							Get 100.0 grams of LEU-235 Fuel <br>
 							Reward: Unlock Energy Autoseller
 						</div>
 					</td>
@@ -157,7 +160,7 @@
 				<tr>
 					<td class="milestonetd">
 						<div id="milestone21" class="milestonelocked">
-							Reach 1e20 Multiplier on LEU-235 Turbines<br>
+							Reach 1.0e20 Multiplier on LEU-235 Turbines<br>
 							Reward: Unlock LEU-235 Reactor and Turbine Autobuyer
 						</div>
 					</td>
@@ -180,6 +183,32 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td class="milestonetd">
+						<div id="milestone31" class="milestonelocked">
+							Buy 2 Meltdown Upgrades<br>
+							Reward: 
+						</div>
+					</td>
+					<td class="milestonetd">
+						<div id="milestone32" class="milestonelocked">
+							Reach 16 Corium<br>
+							Reward: Meltdown gain is 2x higher
+						</div>
+					</td>
+					<td class="milestonetd">
+						<div id="milestone3e" class="milestonelocked">
+							Reach 1e100 Efficiency<br>
+							Reward: Unlock efficiency upgrade and efficiency upgrade
+						</div>
+					</td>
+					<td class="milestonetd">
+						<div id="milestone34" class="milestonelocked">
+							Unlock Coolants<br>
+							Reward: Unlock meltdown
+						</div>
+					</td>
+				</tr>
 			</table>
 		</div>
 		
@@ -188,33 +217,33 @@
 				<tr>
 					<td>
 						<div class="autodiv">
-							<div>
-								<button onclick="buyBasicAuto('energy')" id="energyBasicBuyAuto" class="smol red">Buy for 1e8 Energy</button>
-								<button onclick="toggleBasicAuto('energy')" id="energyBasicToggleAuto" class="smol red">Energy Autobuyer: OFF</button>
-							</div>
 							<div id="waterBasicAuto">
-								<button onclick="buyBasicAuto('water')" id="waterBasicBuyAuto" class="smol red">Buy for 1e8 Energy</button>
-								<button onclick="toggleBasicAuto('water')" id="waterBasicToggleAuto" class="smol red">Water Autobuyer: OFF</button>
+								<button onclick="buyAuto('water', 'basic')" id="waterBasicBuyAuto" class="smol red">Buy for 1e8 Energy</button>
+								<button onclick="toggleAuto('water', 'basic')" id="waterBasicToggleAuto" class="smol red">Water Autobuyer: OFF</button>
 							</div>
 							<div id="fuelBasicAuto">
-								<button onclick="buyBasicAuto('fuel')" id="fuelBasicBuyAuto" class="smol red">Buy for <span id="fuelBasicAutoCost">1e8</span> Energy</button>
-								<button onclick="toggleBasicAuto('fuel')" id="fuelBasicToggleAuto" class="smol red">Fuel Autominer: OFF</button>
+								<button onclick="buyAuto('fuel', 'basic')" id="fuelBasicBuyAuto" class="smol red">Buy for <span id="fuelBasicAutoCost">1e8</span> Energy</button>
+								<button onclick="toggleAuto('fuel', 'basic')" id="fuelBasicToggleAuto" class="smol red">Fuel Autominer: OFF</button>
+							</div>
+							<div id="effBasicAuto" style="display:none">
+								<button onclick="buyAuto('eff', 'basic')" id="effBasicBuyAuto" class="smol red">Buy for 1e8 Energy</button>
+								<button onclick="toggleAuto('eff', 'basic')" id="effBasicToggleAuto" class="smol red">Efficiency Autobuyer: OFF</button>
 							</div>
 						</div>
 					</td>
 					<td>
 						<div class="autodiv">
 							<div id="reactorLEUAuto">
-								<button onclick="buyLEUAuto('reactor')" id="reactorLEUBuyAuto" class="smol red">Buy for 1e25 Energy</button>
-								<button onclick="toggleLEUAuto('reactor')" id="reactorLEUToggleAuto" class="smol red">LEU-235 Reactor Autobuyer: OFF</button>
+								<button onclick="buyAuto('reactor', 'LEU')" id="reactorLEUBuyAuto" class="smol red">Buy for 1e25 Energy</button>
+								<button onclick="toggleAuto('reactor', 'LEU')" id="reactorLEUToggleAuto" class="smol red">LEU-235 Reactor Autobuyer: OFF</button>
 							</div>
 							<div id="turbineLEUAuto">
-								<button onclick="buyLEUAuto('turbine')" id="turbineLEUBuyAuto" class="smol red">Buy for 1e30 Energy</button>
-								<button onclick="toggleLEUAuto('turbine')" id="turbineLEUToggleAuto" class="smol red">LEU-235 Turbine Autobuyer: OFF</button>
+								<button onclick="buyAuto('turbine', 'LEU')" id="turbineLEUBuyAuto" class="smol red">Buy for 1e30 Energy</button>
+								<button onclick="toggleAuto('turbine', 'LEU')" id="turbineLEUToggleAuto" class="smol red">LEU-235 Turbine Autobuyer: OFF</button>
 							</div>
 							<div id="coolingRodLEUAuto">
-								<button onclick="buyLEUAuto('coolingRod')" id="coolingRodLEUBuyAuto" class="smol red">Buy for 1e50 Energy</button>
-								<button onclick="toggleLEUAuto('coolingRod')" id="coolingRodLEUToggleAuto" class="smol red">LEU-235 Cooling Rod Autobuyer: OFF</button>
+								<button onclick="buyAuto('coolingRod', 'LEU')" id="coolingRodLEUBuyAuto" class="smol red">Buy for 1e50 Energy</button>
+								<button onclick="toggleAuto('coolingRod', 'LEU')" id="coolingRodLEUToggleAuto" class="smol red">LEU-235 Cooling Rod Autobuyer: OFF</button>
 							</div>
 						</div>
 					</td>
@@ -256,13 +285,13 @@
 					<tr>
 						<td>
 							<button onclick="buyMeltdownUp(21)" id="meltdownUp21">
-								Reactors and turbines boost each other<br>
+								Cost scaling of all production buildings is halved<br>
 								Cost: 100 Corium
 							</button>
 						</td>
 						<td>
 							<button onclick="buyMeltdownUp(22)" id="meltdownUp22">
-								Cost scaling of all production buildings is halved<br>
+								Reactors and turbines boost each other<br>
 								Cost: 250 Corium
 							</button>
 						</td>
@@ -307,6 +336,11 @@
 					<td align="right">
 							<button onclick="hardReset()" class="sbb aqua" align="center">
 								Hard Reset
+							</button>
+					</td>
+					<td align="left">
+							<button onclick="themeChange()" id="theme" class="sbb aqua" align="center">
+								Theme: Light
 							</button>
 					</td>
 				</tr>

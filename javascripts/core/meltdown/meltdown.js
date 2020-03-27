@@ -3,7 +3,12 @@ function getMeltdownGoal() {
 }
 
 function coriumGain() {
-	return ExpantaNum.pow(100, player.energy.logBase(2).sub(1024).div(1024));
+	let x = player.energy;
+	if (player.energy.gt(getLimit())) {
+		x = getLimit();
+	}
+	let mult = player.milestones[32] ? E(2) : E(1);
+	return ExpantaNum.pow(10, x.logBase(2).sub(1024).div(1024));
 }
 function canMeltdown() {
 	return (player.energy.gte(getMeltdownGoal()) && player.milestones[24]);
@@ -13,10 +18,14 @@ function meltdown() {
 	if (canMeltdown()) {
 		player.meltdown.corium = player.meltdown.corium.add(coriumGain());
 		player.meltdown.amt += 1;
+		
 		player.energy = getDefault().energy;
-		player.totalWater = getDefault().totalWater;
-		player.steam = getDefault().steam;
 		player.heat = getDefault().heat;
+		
+		player.drain = getDefault().drain;
+		player.water = getDefault().water;
+		player.steam = getDefault().steam;
+		
 		player.fuel = getDefault().fuel;
 		player.production = getDefault().production;
 		player.automation = getDefault().automation;

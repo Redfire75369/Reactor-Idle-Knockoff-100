@@ -5,6 +5,7 @@ function E(x) {
 function getDefault() {
 	return {
 		energy: E(0),
+		moderator: 0,
 
 		heat: E(0),
 		drain: E(0),
@@ -33,14 +34,15 @@ function getDefault() {
 			21: false,
 			22: false,
 			23: false,
-			24: false
+			24: false,
+			31: false
 		},
 
 		automation: {
 			basic: {
-				energy: [0, false],
 				water: [0, false],
-				fuel: [0, false]
+				fuel: [0, false],
+				eff : [0, false]
 			},
 			LEU: {
 				reactor: [0, false],
@@ -64,6 +66,8 @@ function getDefault() {
 		},
 
 		options: {
+			theme: "Light",
+			themeNo: 0
 		},
 
 		navigation: {
@@ -85,6 +89,17 @@ function hardReset() {
 	player.navigation.main = "options";
 }
 
+function getLimit() {
+	switch (player.moderator) {
+		case 0:
+			return infinity;
+		case 1:
+			return E("e1.79e308");
+		default:
+			return E(0);
+	}
+}
+
 setInterval(function(){
 	updateUIEnergy();
 	updateUISteam();
@@ -95,6 +110,7 @@ setInterval(function(){
 	updateUIEff();
 	updateUIMeltdown();
 	updateUIMeltdownUps();
+	updateUIModerator();
 }, 100)
 
 

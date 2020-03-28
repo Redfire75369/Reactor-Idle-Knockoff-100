@@ -1,5 +1,5 @@
-function notation(num, dp = 1) {
-	if (num.gte(getLimit())) {
+function notation(num, dp = 1, test = false) {
+	if (num.gte(getLimit()) && !test) {
 		return "Infinite";
 	}
 	switch ("Scientific") {
@@ -13,7 +13,7 @@ function scientific(num, dp) {
 		return num.toFixed(dp).toString();
 	} else if (num.lt(E("eee6"))) {
 		if (num.div(E(10).pow(num.logBase(10).floor())).lt(9.999)) {
-			return (num.div(E(10).pow(num.logBase(10).floor())).toFixed(dp)) + "e" + scientific(num.logBase(10).floor(), 0);
+			return (num.div(E(10).pow(num.logBase(10).floor())).toFixed(dp)) + "e" + scientific(num.logBase(10).floor(), 1);
 		} else {
 			return E(1).toFixed(dp) + "e" + scientific(num.logBase(10).floor().add(1), 0);
 		}

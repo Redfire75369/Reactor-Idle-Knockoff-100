@@ -7,7 +7,8 @@ function generateSteam() {
 }
 
 function getDrainCost() {
-	return E(10).pow(player.drain.add(2));
+	let r = player.meltdown.ups[21] ? E(5) : E(10);
+	return E(100).mul(r.pow(player.drain));
 }
 function canBuyDrain() {
 	return player.energy.gte(getDrainCost());

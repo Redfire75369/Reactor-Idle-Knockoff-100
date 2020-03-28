@@ -28,7 +28,7 @@ function checkMilestones() {
 			boughtUp++;
 		}
 	}
-	player.milestones[31] = player.milestones[31] ? true : boughtUp >= 2;
+	player.milestones[31] = player.milestones[31] ? true : boughtUp >= 3;
 	player.milestones[32] = player.milestones[32] ? true : player.meltdown.corium.gte(16);
 	player.milestones[33] = player.milestones[33] ? true : getEff().gte(2.51e92);
 }

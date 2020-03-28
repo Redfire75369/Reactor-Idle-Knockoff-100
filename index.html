@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<link id="style" rel="stylesheet" href="style.css">
+		<link id="style" rel="stylesheet" href="stylesheets/light.css">
 		
 		<script src="javascripts/libs/ExpantaNum.js" defer></script>
 		<script src="javascripts/libs/mousetrap.min.js" defer></script>
@@ -48,6 +48,7 @@
 			<div id="modDiv"align="right">
 				<p>Current Moderator: <span id="moderator">None</span></p>
 				<button onclick="buyModerator()" class="height lightgrey">Buy <span id="modCost">Graphite Moderator for 4096</span> Corium</button>
+				<p>Current Energy Limit: <span id="modLimit"></span> J</p>
 			</div>
 		</div>
 		
@@ -186,14 +187,14 @@
 				<tr>
 					<td class="milestonetd">
 						<div id="milestone31" class="milestonelocked">
-							Buy 2 Meltdown Upgrades<br>
-							Reward: 
+							Buy 3 Meltdown Upgrades<br>
+							Reward: Keep automation and drain oceans on meltdown
 						</div>
 					</td>
 					<td class="milestonetd">
 						<div id="milestone32" class="milestonelocked">
 							Reach 16 Corium<br>
-							Reward: Meltdown gain is 2x higher
+							Reward: Corium gain is doubled
 						</div>
 					</td>
 					<td class="milestonetd">
@@ -218,15 +219,15 @@
 					<td>
 						<div class="autodiv">
 							<div id="waterBasicAuto">
-								<button onclick="buyAuto('water', 'basic')" id="waterBasicBuyAuto" class="smol red">Buy for 1e8 Energy</button>
+								<button onclick="buyAuto('water', 'basic')" id="waterBasicBuyAuto" class="smol red">Buy for 1.0e8 Energy</button>
 								<button onclick="toggleAuto('water', 'basic')" id="waterBasicToggleAuto" class="smol red">Water Autobuyer: OFF</button>
 							</div>
 							<div id="fuelBasicAuto">
-								<button onclick="buyAuto('fuel', 'basic')" id="fuelBasicBuyAuto" class="smol red">Buy for <span id="fuelBasicAutoCost">1e8</span> Energy</button>
+								<button onclick="buyAuto('fuel', 'basic')" id="fuelBasicBuyAuto" class="smol red">Buy for <span id="fuelBasicAutoCost">1.0e8</span> Energy</button>
 								<button onclick="toggleAuto('fuel', 'basic')" id="fuelBasicToggleAuto" class="smol red">Fuel Autominer: OFF</button>
 							</div>
 							<div id="effBasicAuto" style="display:none">
-								<button onclick="buyAuto('eff', 'basic')" id="effBasicBuyAuto" class="smol red">Buy for 1e8 Energy</button>
+								<button onclick="buyAuto('eff', 'basic')" id="effBasicBuyAuto" class="smol red">Buy for 1.0e600 Energy</button>
 								<button onclick="toggleAuto('eff', 'basic')" id="effBasicToggleAuto" class="smol red">Efficiency Autobuyer: OFF</button>
 							</div>
 						</div>
@@ -234,15 +235,15 @@
 					<td>
 						<div class="autodiv">
 							<div id="reactorLEUAuto">
-								<button onclick="buyAuto('reactor', 'LEU')" id="reactorLEUBuyAuto" class="smol red">Buy for 1e25 Energy</button>
+								<button onclick="buyAuto('reactor', 'LEU')" id="reactorLEUBuyAuto" class="smol red">Buy for 1.0e25 Energy</button>
 								<button onclick="toggleAuto('reactor', 'LEU')" id="reactorLEUToggleAuto" class="smol red">LEU-235 Reactor Autobuyer: OFF</button>
 							</div>
 							<div id="turbineLEUAuto">
-								<button onclick="buyAuto('turbine', 'LEU')" id="turbineLEUBuyAuto" class="smol red">Buy for 1e30 Energy</button>
+								<button onclick="buyAuto('turbine', 'LEU')" id="turbineLEUBuyAuto" class="smol red">Buy for 1.0e30 Energy</button>
 								<button onclick="toggleAuto('turbine', 'LEU')" id="turbineLEUToggleAuto" class="smol red">LEU-235 Turbine Autobuyer: OFF</button>
 							</div>
 							<div id="coolingRodLEUAuto">
-								<button onclick="buyAuto('coolingRod', 'LEU')" id="coolingRodLEUBuyAuto" class="smol red">Buy for 1e50 Energy</button>
+								<button onclick="buyAuto('coolingRod', 'LEU')" id="coolingRodLEUBuyAuto" class="smol red">Buy for 1.0e50 Energy</button>
 								<button onclick="toggleAuto('coolingRod', 'LEU')" id="coolingRodLEUToggleAuto" class="smol red">LEU-235 Cooling Rod Autobuyer: OFF</button>
 							</div>
 						</div>

@@ -21,14 +21,16 @@ function meltdown() {
 		
 		player.energy = getDefault().energy;
 		player.heat = getDefault().heat;
+		player.eff = getDefault().eff;
+
 		
-		player.drain = getDefault().drain;
-		player.water = getDefault().water;
+		player.drain = player.milestones[31] ? player.drain : getDefault().drain;
 		player.steam = getDefault().steam;
 		
 		player.fuel = getDefault().fuel;
 		player.production = getDefault().production;
-		player.automation = getDefault().automation;
+		
+		player.automation = player.milestones[31] ? player.automation : getDefault().automation;
 	}
 }
 

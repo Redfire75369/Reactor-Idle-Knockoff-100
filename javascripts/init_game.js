@@ -7,6 +7,7 @@ function init_game() {
 	document.getElementById("meltdownt").style.display = "none";
 	document.getElementById("options").style.display = "none";
 	showMainTab(player.navigation.main);
+	targetedThemeChange(player.options.theme);
 }
 
 init_game();

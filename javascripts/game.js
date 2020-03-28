@@ -35,7 +35,10 @@ function getDefault() {
 			22: false,
 			23: false,
 			24: false,
-			31: false
+			31: false,
+			32: false,
+			33: false,
+			34: false
 		},
 
 		automation: {
@@ -87,6 +90,7 @@ var player = getDefault();
 function hardReset() {
 	player = getDefault();
 	player.navigation.main = "options";
+	targetedThemeChange("Light");
 }
 
 function getLimit() {
@@ -95,6 +99,8 @@ function getLimit() {
 			return infinity;
 		case 1:
 			return E("e1.79e308");
+		case 2:
+			return E("eee1.79e308")
 		default:
 			return E(0);
 	}

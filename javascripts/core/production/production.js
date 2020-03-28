@@ -91,14 +91,14 @@ function getReactorMult(type) {
 	let ret = E(4).pow(player.production.reactor[type].sub(1)).mul(getMilestoneMult());
 	ret = ret.mul(getTotalMeltdownUpMult());
 	ret = player.meltdown.ups[22] ? ret.mul(ExpantaNum.max(1, E(2).pow(player.production.turbine[type]))) : ret;
-	ret = player.meltdown.ups[23] ? ret.pow(player.meltdown.corium.logBase(10).div(10).max(0)) : ret;
+	ret = player.meltdown.ups[23] ? ret.pow(player.meltdown.corium.log10().div(10).max(1)) : ret;
 	return ret;
 }
 function getTurbineMult(type) {
 	let ret = E(4).pow(player.production.turbine[type].sub(1)).mul(getMilestoneMult());
 	ret = ret.mul(getTotalMeltdownUpMult());
 	ret = player.meltdown.ups[22] ? ret.mul(ExpantaNum.max(1, E(2.1).pow(player.production.reactor[type]))) : ret;
-	ret = player.meltdown.ups[23] ? ret.pow(player.meltdown.corium.logBase(10).div(10).max(1)) : ret;
+	ret = player.meltdown.ups[23] ? ret.pow(player.meltdown.corium.log10().div(10).max(1)) : ret;
 	return ret;
 }
 function getCoolingRodMult(type) {

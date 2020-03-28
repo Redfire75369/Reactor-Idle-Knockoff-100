@@ -38,6 +38,9 @@ function simulateAuto() {
 	if (player.automation.basic.fuel[1]) {
 		mineFuel(0, player.automation.basic.fuel[0]);
 	}
+	if (player.automation.basic.eff[1]) {
+		buyEff();
+	}
 	if (player.automation.LEU.reactor[1]) {
 		buyReactor(0);
 	}

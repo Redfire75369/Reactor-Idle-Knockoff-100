@@ -24,7 +24,7 @@ function meltdown() {
 		player.eff = getDefault().eff;
 
 		
-		player.drain = player.milestones[31] ? player.drain : getDefault().drain;
+		player.drain = getDefault().drain;
 		player.steam = getDefault().steam;
 		
 		player.fuel = getDefault().fuel;

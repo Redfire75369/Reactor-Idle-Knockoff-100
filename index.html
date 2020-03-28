@@ -39,18 +39,26 @@
 			<p align="center">You have <span id="energy">0.0</span> J of energy.</p>
 		</div>
 		
-		<div align="center" style="width:100vw; font-size: 12px">
-			<div id="effDiv" align="center">
-				<p align="center">Increase efficiency of all mines by <span id="effMult">25.0</span>%</p>
-				<button onclick="buyEff()" class="height lightgrey" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
-				<p align="center">Efficiency: <span id="eff">1000</span></p>
-			</div>
-			<div id="modDiv"align="right">
-				<p>Current Moderator: <span id="moderator">None</span></p>
-				<button onclick="buyModerator()" class="height lightgrey">Buy <span id="modCost">Graphite Moderator for 4096</span> Corium</button>
-				<p>Current Energy Limit: <span id="modLimit"></span> J</p>
-			</div>
-		</div>
+		<table align="center">
+			<tr align="center">
+				<td id="Div" align="center" style="width:24vw">
+				</td>
+				<td id="effDiv" align="center" style="width:48vw">
+					<div align="center">
+						<p align="center">Increase efficiency of all mines by <span id="effMult">25.0</span>%</p>
+						<button onclick="buyEff()" class="height lightgrey" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
+						<p align="center">Efficiency: <span id="eff">1000</span></p>
+					</div>
+				</td>
+				<td id="modDiv" align="right" style="width:24vw">
+					<div align="center">
+						<p align="center">Current Moderator: <span id="moderator">None</span></p>
+						<button onclick="buyModerator()" class="height lightgrey">Buy <span id="modCost">Graphite Moderator for 4096</span> Corium</button>
+						<p align="center">Current Energy Limit: <span id="modLimit"></span> J</p>
+					</div>
+				</td>
+			</tr>
+		</table>
 		
 		<div>
 			You have <span id="water">1000.0</span> ℓ of Water and <span id="steam">0.0</span> ℓ of Steam.
@@ -188,7 +196,7 @@
 					<td class="milestonetd">
 						<div id="milestone31" class="milestonelocked">
 							Buy 3 Meltdown Upgrades<br>
-							Reward: Keep automation and drain oceans on meltdown
+							Reward: Keep automation on meltdown
 						</div>
 					</td>
 					<td class="milestonetd">
@@ -198,7 +206,7 @@
 						</div>
 					</td>
 					<td class="milestonetd">
-						<div id="milestone3e" class="milestonelocked">
+						<div id="milestone33" class="milestonelocked">
 							Reach 1e100 Efficiency<br>
 							Reward: Unlock efficiency upgrade and efficiency upgrade
 						</div>

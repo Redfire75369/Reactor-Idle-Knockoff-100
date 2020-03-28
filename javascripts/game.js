@@ -10,7 +10,7 @@ function getDefault() {
 		heat: E(0),
 		drain: E(0),
 		water: E(100),
-		steam: E(0),
+		steam: E(10),
 		
 		eff: E(1),
 

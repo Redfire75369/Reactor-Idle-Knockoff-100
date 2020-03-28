@@ -12,6 +12,8 @@ function targetedThemeChange(theme) {
 	while (player.options.theme != theme) {
 		themeChange();
 	}
+	document.getElementById("theme").innerText = "Theme: " + player.options.theme;
+	document.getElementById("style").setAttribute("href", "stylesheets/" + player.options.theme.toLowerCase() + ".css");
 }
 
 function save() {

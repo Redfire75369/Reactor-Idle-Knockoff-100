@@ -1,5 +1,5 @@
 function condenseSteam() {
-	let x = generateEnergy().div(player.production.turbine[0]).div(E(1.10).pow(player.production.coolingRod[0].mul(getCoolingRodMult(0))).mul(getEff()));
+	let x = generateEnergy().div(player.production.turbine[0]).div(getEff());
 	return player.steam.gt(x) ? x : player.steam;
 }
 function generateSteam() {
@@ -18,6 +18,14 @@ function drainOcean() {
 	if (canBuyDrain()) {
 		player.energy = player.energy.sub(getDrainCost());
 		player.drain = player.drain.add(1);
+	}
+}
+function drainMaxOcean() {
+	if (canBuyDrain()) {
+		let r = player.meltdown.ups[21] ? E(5) : E(10);
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 100, r, player.drain);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 100, r, player.drain));
+		player.drain = player.drain.add(x);
 	}
 }
 

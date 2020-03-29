@@ -100,3 +100,25 @@ body {
 	height: 41px;
 	width: 201px;
 }
+.mineBtn {
+	border: 3px solid #DB8C41;
+	border-radius: 3px;
+	background-color: #666666;
+	height: 40px;
+	width: 150px;
+}
+.mineBtn:hover {
+	height: 41px;
+	width: 151px;
+}
+.drainBtn {
+	border: 3px solid #0000FF;
+	border-radius: 3px;
+	background-color: #006994;
+	height: 40px;
+	width: 300px;
+}
+.drainBtn:hover {
+	height: 41px;
+	width: 301px;
+}

@@ -22,7 +22,8 @@ function buyMaxEff() {
 }
 
 function getEffIncrement() {
-	return E(1.50);
+	let ret = (player.coolantActive == "FLiNaK") ? player.corium.log10().log10() : E(1.50);
+	return ExpantaNum.max(1.50, ret);
 }
 
 function getEff() {

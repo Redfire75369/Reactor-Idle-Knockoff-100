@@ -92,6 +92,8 @@ function getReactorMult(type) {
 	ret = ret.mul(getTotalMeltdownUpMult());
 	ret = player.meltdown.ups[22] ? ret.mul(ExpantaNum.max(1, E(2).pow(player.production.turbine[type]))) : ret;
 	ret = player.meltdown.ups[23] ? ret.pow(player.meltdown.corium.log10().div(10).max(1)) : ret;
+	ret = (player.coolantActive == "NaK") ? ret.pow(1/10) : ret;
+	ret = (player.coolantActive == "Na") ? ret.pow(12) : ret;
 	return ret;
 }
 function getTurbineMult(type) {
@@ -99,10 +101,13 @@ function getTurbineMult(type) {
 	ret = ret.mul(getTotalMeltdownUpMult());
 	ret = player.meltdown.ups[22] ? ret.mul(ExpantaNum.max(1, E(2.1).pow(player.production.reactor[type]))) : ret;
 	ret = player.meltdown.ups[23] ? ret.pow(player.meltdown.corium.log10().div(10).max(1)) : ret;
+	ret = (player.coolantActive == "NaK") ? ret.pow(12) : ret;
+	ret = (player.coolantActive == "Na") ? ret.pow(1/10) : ret;
 	return ret;
 }
 function getCoolingRodMult(type) {
 	return E(5).pow(player.production.coolingRod[type].sub(1)).mul(getMilestoneMult());
+	ret = (player.coolantActive == "FLiBe") ? ret.pow(1/10) : ret;
 }
 function getCentrifugeMult(type) {
 	return E(3).pow(player.production.centrifuge[type].sub(1)).mul(getMilestoneMult());

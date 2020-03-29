@@ -68,6 +68,16 @@ function getDefault() {
 			}
 		},
 
+		coolantActive: "none",
+		coolant: {
+			NaK: 0,
+			Na: 0,
+			FLiNaK: 0,
+			FLiBe: 0,
+			Pb: 0,
+			PbBi: 0
+		},
+
 		options: {
 			theme: "Light",
 			themeNo: 0
@@ -75,7 +85,8 @@ function getDefault() {
 
 		navigation: {
 			main: "production",
-			production: "LEU"
+			production: "LEU",
+			meltdown: "meltdownUps"
 		},
 
 		time: 0
@@ -117,6 +128,7 @@ setInterval(function(){
 	updateUIMeltdown();
 	updateUIMeltdownUps();
 	updateUIModerator();
+	updateUICoolant();
 }, 100)
 
 

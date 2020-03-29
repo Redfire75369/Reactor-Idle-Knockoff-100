@@ -78,6 +78,30 @@ body {
   border: 4px solid white;
 }
 
+.coolantbtn {
+    border: 5px solid #11FFBB;
+    border-radius: 5px;
+    background-color: #00FFFF;
+    color: #118833;
+    float: left;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+}
+.coolanton {
+	width: 100%;
+	height: 40px;
+	color: #AAAAFF;
+	background-color: #3333FF;
+    border: 2px solid #0088FF;
+}
+.coolantoff {
+	width: 100%;
+	height: 40px;
+	color: #000000;
+	background-color: #888888;
+    border: 2px solid #333333;
+}
 /* Reinhardt's magic button styles */
 
 .sbb {

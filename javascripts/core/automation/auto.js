@@ -35,7 +35,7 @@ function simulateAuto() {
 	if (player.automation.basic.water[1]) {
 		drainOcean();
 	}
-	if (player.automation.basic.fuel[1]) {
+	if (player.automation.basic.fuel[1] && player.energy.gt(1e8)) {
 		mineFuel(0, player.automation.basic.fuel[0]);
 	}
 	if (player.automation.basic.eff[1]) {

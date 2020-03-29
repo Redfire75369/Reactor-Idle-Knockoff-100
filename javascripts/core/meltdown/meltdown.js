@@ -8,15 +8,20 @@ function coriumGain() {
 		x = getLimit();
 	}
 	let mult = player.milestones[32] ? E(2) : E(1);
-	return ExpantaNum.pow(10, x.logBase(2).sub(1024).div(1024));
+	mult = (player.coolantActive == "FLiBe") ? mult.mul(getEff().log10().add(1).log10().add(1)) : mult;
+	return ExpantaNum.pow(10, x.logBase(2).sub(1024).div(1024)).mul(mult);
 }
 function canMeltdown() {
 	return (player.energy.gte(getMeltdownGoal()) && player.milestones[24]);
 }
 
-function meltdown() {
+function meltdown(forced = false) {
 	if (canMeltdown()) {
-		player.meltdown.corium = player.meltdown.corium.add(coriumGain());
+		if (!forced) {
+			player.meltdown.corium = player.meltdown.corium.add(coriumGain());
+		} else {
+			player.meltdown.corium = player.meltdown.corium.add(coriumGain().div(2));
+		}
 		player.meltdown.amt += 1;
 		
 		player.energy = getDefault().energy;

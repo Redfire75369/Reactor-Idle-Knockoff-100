@@ -1,5 +1,5 @@
 function condenseSteam() {
-	let x = generateEnergy().div(player.production.turbine[0]).div(getEff());
+	let x = generateEnergy().div(player.production.turbine[0]).div(E(1.05).pow(player.production.coolingRod[0]));
 	return player.steam.gt(x) ? x : player.steam;
 }
 function generateSteam() {

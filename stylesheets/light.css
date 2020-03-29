@@ -73,11 +73,36 @@ body {
   border: 4px solid black;
 }
 .meltdownuplocked {
-  background-color: grey;
-  color: white;
   width: 25vw;
   height: 150px;
+  color: white;
+  background-color: grey;
   border: 4px solid black;
+}
+
+.coolantbtn {
+	width: 100%;
+	height: 40px;
+	color: #118833;
+	background-color: #00FFFF;
+    border: 5px solid #11FFBB;
+    border-radius: 5px;
+    float: left;
+    text-align: center;
+}
+.coolanton {
+	width: 100%;
+	height: 40px;
+	color: #AAAAFF;
+	background-color: #3333FF;
+    border: 2px solid #0088FF;
+}
+.coolantoff {
+	width: 100%;
+	height: 40px;
+	color: #000000;
+	background-color: #888888;
+    border: 2px solid #333333;
 }
 /* Reinhardt's magic button styles */
 

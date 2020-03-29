@@ -30,6 +30,8 @@ function importSave() {
 		return
 	}
 	loadSave(save, true);
+	showMainTab(player.navigation.main);
+	targetedThemeChange(player.options.theme);
 	saveGame();
 }
 function exportSave() {

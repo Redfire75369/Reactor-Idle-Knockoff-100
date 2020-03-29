@@ -31,6 +31,7 @@ function checkMilestones() {
 	player.milestones[31] = player.milestones[31] ? true : boughtUp >= 3;
 	player.milestones[32] = player.milestones[32] ? true : player.meltdown.corium.gte(16);
 	player.milestones[33] = player.milestones[33] ? true : getEff().gte(2.51e92);
+	player.milestones[34] = player.milestones[34] ? true : player.moderator >= 1;
 }
 
 function updateUIMilestones() {
@@ -38,16 +39,16 @@ function updateUIMilestones() {
 	
 	document.getElementById("mineLEU").style.display = player.milestones[11] ? "inline-block" : "none";
 	document.getElementById("autobtn").style.display = player.milestones[12] ? "inline-block" : "none";
-	document.getElementById("LEU_crrow").style.display= player.milestones[13] ? "table-row" : "none";
-	document.getElementById("waterBasicAuto").style.display= player.milestones[14] ? "table-row" : "none";
-	document.getElementById("fuelBasicAuto").style.display= player.milestones[14] ? "table-row" : "none";
+	document.getElementById("LEU_crrow").style.display = player.milestones[13] ? "table-row" : "none";
+	document.getElementById("waterBasicAuto").style.display = player.milestones[14] ? "table-row" : "none";
+	document.getElementById("fuelBasicAuto").style.display = player.milestones[14] ? "table-row" : "none";
 	
-	document.getElementById("reactorLEUAuto").style.display= player.milestones[21] ? "inline-block" : "none";
-	document.getElementById("turbineLEUAuto").style.display= player.milestones[21] ? "inline-block" : "none";
-	document.getElementById("coolingRodLEUAuto").style.display= player.milestones[22] ? "inline-block" : "none";
+	document.getElementById("reactorLEUAuto").style.display = player.milestones[21] ? "inline-block" : "none";
+	document.getElementById("turbineLEUAuto").style.display = player.milestones[21] ? "inline-block" : "none";
+	document.getElementById("coolingRodLEUAuto").style.display = player.milestones[22] ? "inline-block" : "none";
 	
-	document.getElementById("effBasicAuto").style.display= player.milestones[33] ? "inline-block" : "none";
-	
+	document.getElementById("effBasicAuto").style.display = player.milestones[33] ? "inline-block" : "none";
+	document.getElementById("coolantbtn").style.display = player.milestones[34] ? "inline-block" : "none";
 	for (let i = 0; i < milestones.length; i++) {
 		document.getElementById("milestone" + milestones[i]).className = player.milestones[milestones[i]] ? "milestonecomplete" : "milestonelocked";
 	}

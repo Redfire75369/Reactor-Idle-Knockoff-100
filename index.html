@@ -25,6 +25,7 @@
 		<script src="javascripts/core/meltdown/efficiency.js" defer></script>
 		<script src="javascripts/core/meltdown/upgrades.js" defer></script>
 		<script src="javascripts/core/meltdown/moderator.js" defer></script>
+		<script src="javascripts/core/meltdown/coolant.js" defer></script>
 		<script src="javascripts/options.js" defer></script> 
 		<script src="javascripts/navigation.js" defer></script> 
 		<script src="javascripts/init_game.js" defer></script> 
@@ -213,8 +214,8 @@
 					</td>
 					<td class="milestonetd">
 						<div id="milestone34" class="milestonelocked">
-							Unlock Coolants<br>
-							Reward: Unlock meltdown
+							Buy the Graphite Moderator<br>
+							Reward: Unlock Coolants
 						</div>
 					</td>
 				</tr>
@@ -269,6 +270,16 @@
 		</div>
 		
 		<div id="meltdownt">
+			<div class="center">
+				<table class="center">
+					<tr>
+						<td class="lh40 center">
+							<button onclick="showMeltdownTab('meltdownUps')" id="meltdownupbtn" class="navibtn sbb blue smol">Upgrades</button>
+							<button onclick="showMeltdownTab('coolants')" id="coolantbtn" class="navibtn sbb yellow smol">Coolants</button>
+						</td>
+					</tr>
+				</table>
+			</div>
 			<div id="meltdownUps">
 				<table>
 					<tr>
@@ -309,6 +320,56 @@
 								All production buildings' multipliers are raised to a power based on corium and energy<br>
 								Cost: 1000 Corium
 							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="coolants">
+				<table>
+					<tr>
+						<td>
+							<p>NaK Coolant<br>
+							Buff: Multiplier of Turbines is greatly increased<br>
+							Debuff: Multiplier of Reactors is greatly decreased</p>
+							<button onclick="buyCoolant('NaK')" id="buyNaK" class="coolantbtn">Buy NaK Coolant for 1.80e308 Corium</button>
+							<button onclick="switchCoolant('NaK')" id="switchNaK" class="coolantoff">Switch to NaK Coolant</button>
+						</td>
+						<td>
+							<p>Na Coolant<br>
+							Buff: Multiplier of Reactors is greatly increased<br>
+							Debuff: Multiplier of Turbines is greatly decreased</p>
+							<button onclick="buyCoolant('Na')"  id="buyNa" class="coolantbtn">Buy Na Coolant for 1.00e1.00e5 Corium</button>
+							<button onclick="switchCoolant('Na')" id="switchNa" class="coolantoff">Switch to Na Coolant</button>
+						</td>
+						<td>
+							<p>FLiNaK Coolant<br>
+							Buff: Efficiency increment is increased based on corium<br>
+							Debuff: Chance of a Meltdown occuring randomly at a rate of 0.125%/50ms</p>
+							<button onclick="buyCoolant('FLiNaK')" id="buyFLiNaK" class="coolantbtn">Buy FLiNaK Coolant for 1.00e1.00e100 Corium</button>
+							<button onclick="switchCoolant('FLiNaK')" id="switchFLiNaK" class="coolantoff">Switch to FLiNaK Coolant</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>FliBe Coolant<br>
+							Buff: Corium gain is increased based on efficiency<br>
+							Debuff: Multiplier of Cooling Rods is greatly decreased</p>
+							<button onclick="buyCoolant('FLiBe')" id="buyFLiBe" class="coolantbtn">Buy FLiBe Coolant for 1.0e1.0e1.0e5 Corium</button>
+							<button onclick="switchCoolant('FLiBe')" id="switchFLiBe" class="coolantoff">Switch to FLiBe Coolant</button>
+						</td>
+						<td>
+							<p>Pb Coolant<br>
+							Buff: <br>
+							Debuff: </p>
+							<button onclick="buyCoolant('Pb')" id="buyPb" class="coolantbtn">Buy Pb Coolant for 1.0e1.0e1.0e100 Corium</button>
+							<button onclick="switchCoolant('Pb')" id="switchPb" class="coolantoff">Switch to Pb Coolant</button>
+						</td>
+						<td>
+							<p>PbBi Coolant<br>
+							Buff: Centrifuges pentate heat, water and steam gain<br>
+							Debuff: All multipliers of producers greatly decreased and cooling rods are disabled</p>
+							<button onclick="buyCoolant('PbBi')" id="buyPbBi" class="coolantbtn">Buy PbBi Coolant for 1.0e1.0e1.0e1.0e308 Corium</button>
+							<button onclick="switchCoolant('PbBi')" id="switchPbBi" class="coolantoff">Switch to PbBi Coolant</button>
 						</td>
 					</tr>
 				</table>

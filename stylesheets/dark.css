@@ -120,11 +120,11 @@ body {
 	border-radius: 3px;
 	background-color: #AAAAAA;
 	height: 40px;
-	width: 200px;
+	width: 250px;
 }
 .buyProductionBtn:hover {
 	height: 41px;
-	width: 201px;
+	width: 251px;
 }
 .mineBtn {
 	border: 3px solid #DB8C41;
@@ -142,9 +142,20 @@ body {
 	border-radius: 3px;
 	background-color: #006994;
 	height: 40px;
-	width: 300px;
+	width: 350px;
 }
 .drainBtn:hover {
 	height: 41px;
-	width: 301px;
+	width: 351px;
+}
+.autoBtn {
+	border: 3px solid #B5A642;
+	border-radius: 3px;
+	background-color: #B0B0B0;
+	height: 30px;
+	width: 130px;
+}
+.autoBtn:hover {
+	height: 31px;
+	width: 131px;
 }

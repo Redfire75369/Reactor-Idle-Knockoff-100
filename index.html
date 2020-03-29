@@ -47,14 +47,14 @@
 				<td id="effDiv" align="center" style="width:48vw">
 					<div align="center">
 						<p align="center">Increase efficiency of all mines by <span id="effMult">25.0</span>%</p>
-						<button onclick="buyEff()" class="height lightgrey" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
+						<button onclick="buyEff()" class="buyProductionBtn" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
 						<p align="center">Efficiency: <span id="eff">1000</span></p>
 					</div>
 				</td>
 				<td id="modDiv" align="right" style="width:24vw">
 					<div align="center">
 						<p align="center">Current Moderator: <span id="moderator">None</span></p>
-						<button onclick="buyModerator()" class="height lightgrey">Buy <span id="modCost">Graphite Moderator for 4096</span> Corium</button>
+						<button onclick="buyModerator()" class="buyProductionBtn">Buy <span id="modCost">Graphite Moderator for 4096</span> Corium</button>
 						<p align="center">Current Energy Limit: <span id="modLimit"></span> J</p>
 					</div>
 				</td>
@@ -63,7 +63,7 @@
 		
 		<div>
 			You have <span id="water">1000.0</span> ℓ of Water and <span id="steam">0.0</span> ℓ of Steam.
-			<button onclick="drainOcean()" class="sbb height blue">
+			<button onclick="drainOcean()" class="drainBtn">
 				Drain ocean to acquire more water for <span id="drainCost">100.0</span> J
 			</button>
 		</div>
@@ -71,11 +71,11 @@
 			<table class="center">
 				<tr>
 					<td class="lh40 center">
-						<button onclick="showMainTab('production')" id="prodbtn" class="navibtn sbb blue smol">Production</button>
-						<button onclick="showMainTab('milestones')" id="milestonesbtn" class="navibtn sbb yellow smol">Milestones</button>
-						<button onclick="showMainTab('automation')" id="autobtn" class="navibtn sbb red smol">Automation</button>
-						<button onclick="showMainTab('meltdownt')" id="meltdownbtn" class="navibtn sbb green smol">Meltdown</button>
-						<button onclick="showMainTab('options')" id="optionsbtn" class="navibtn sbb green smol">Options</button>
+						<button onclick="showMainTab('production')" id="prodbtn" class="navibtn">Production</button>
+						<button onclick="showMainTab('milestones')" id="milestonesbtn" class="navibtn">Milestones</button>
+						<button onclick="showMainTab('automation')" id="autobtn" class="navibtn">Automation</button>
+						<button onclick="showMainTab('meltdownt')" id="meltdownbtn" class="navibtn">Meltdown</button>
+						<button onclick="showMainTab('options')" id="optionsbtn" class="navibtn">Options</button>
 					</td>
 				</tr>
 			</table>
@@ -84,7 +84,7 @@
 			<div id="LEU">
 				<div>
 					You have <span id="LEU_fuel">1.0</span> grams of LEU-235 fuel.
-					<button onclick="mineFuel(0, 1)" id="mineLEU" class="sbb height green smol center">
+					<button onclick="mineFuel(0, 1)" id="mineLEU" class="mineBtn">
 						Mine more fuel for 10.0 J
 					</button>
 				</div>
@@ -101,7 +101,7 @@
 								<span id="LEU_rt">0</span>
 							</td>
 							<td>
-								<button onclick="buyReactor(0)" class="sbb height lightgrey">
+								<button onclick="buyReactor(0)" class="buyProductionBtn">
 									Buy LEU Reactor for <span id="LEU_rtcost">1.0</span> J
 								</button>
 							</td>
@@ -114,7 +114,7 @@
 								<span id="LEU_tur">0</span>
 							</td>
 							<td>
-								<button onclick="buyTurbine(0)" class="sbb height lightgrey">
+								<button onclick="buyTurbine(0)" class="buyProductionBtn">
 									Buy LEU Turbine for <span id="LEU_turcost">1.0</span> J
 								</button>
 							</td>
@@ -127,7 +127,7 @@
 								<span id="LEU_cr">0</span>
 							</td>
 							<td>
-								<button onclick="buyCoolingRod(0)" class="sbb height lightgrey">
+								<button onclick="buyCoolingRod(0)" class="buyProductionBtn">
 									Buy LEU Cooling Rod for <span id="LEU_crcost">1.0</span>
 								</button>
 							</td>
@@ -228,32 +228,32 @@
 					<td>
 						<div class="autodiv">
 							<div id="waterBasicAuto">
-								<button onclick="buyAuto('water', 'basic')" id="waterBasicBuyAuto" class="smol red">Buy for 1.0e8 Energy</button>
-								<button onclick="toggleAuto('water', 'basic')" id="waterBasicToggleAuto" class="smol red">Water Autobuyer: OFF</button>
+								<button onclick="buyAuto('water', 'basic')" id="waterBasicBuyAuto" class="autoBtn">Buy for 1.0e8 Energy</button>
+								<button onclick="toggleAuto('water', 'basic')" id="waterBasicToggleAuto" class="autoBtn">Water Autobuyer: OFF</button>
 							</div>
 							<div id="fuelBasicAuto">
-								<button onclick="buyAuto('fuel', 'basic')" id="fuelBasicBuyAuto" class="smol red">Buy for <span id="fuelBasicAutoCost">1.0e8</span> Energy</button>
-								<button onclick="toggleAuto('fuel', 'basic')" id="fuelBasicToggleAuto" class="smol red">Fuel Autominer: OFF</button>
+								<button onclick="buyAuto('fuel', 'basic')" id="fuelBasicBuyAuto" class="autoBtn">Buy for <span id="fuelBasicAutoCost">1.0e8</span> Energy</button>
+								<button onclick="toggleAuto('fuel', 'basic')" id="fuelBasicToggleAuto" class="autoBtn">Fuel Autominer: OFF</button>
 							</div>
 							<div id="effBasicAuto" style="display:none">
-								<button onclick="buyAuto('eff', 'basic')" id="effBasicBuyAuto" class="smol red">Buy for 1.0e600 Energy</button>
-								<button onclick="toggleAuto('eff', 'basic')" id="effBasicToggleAuto" class="smol red">Efficiency Autobuyer: OFF</button>
+								<button onclick="buyAuto('eff', 'basic')" id="effBasicBuyAuto" class="autoBtn">Buy for 1.0e600 Energy</button>
+								<button onclick="toggleAuto('eff', 'basic')" id="effBasicToggleAuto" class="autoBtn">Efficiency Autobuyer: OFF</button>
 							</div>
 						</div>
 					</td>
 					<td>
 						<div class="autodiv">
 							<div id="reactorLEUAuto">
-								<button onclick="buyAuto('reactor', 'LEU')" id="reactorLEUBuyAuto" class="smol red">Buy for 1.0e25 Energy</button>
-								<button onclick="toggleAuto('reactor', 'LEU')" id="reactorLEUToggleAuto" class="smol red">LEU-235 Reactor Autobuyer: OFF</button>
+								<button onclick="buyAuto('reactor', 'LEU')" id="reactorLEUBuyAuto" class="autoBtn">Buy for 1.0e25 Energy</button>
+								<button onclick="toggleAuto('reactor', 'LEU')" id="reactorLEUToggleAuto" class="autoBtn">LEU-235 Reactor Autobuyer: OFF</button>
 							</div>
 							<div id="turbineLEUAuto">
-								<button onclick="buyAuto('turbine', 'LEU')" id="turbineLEUBuyAuto" class="smol red">Buy for 1.0e30 Energy</button>
-								<button onclick="toggleAuto('turbine', 'LEU')" id="turbineLEUToggleAuto" class="smol red">LEU-235 Turbine Autobuyer: OFF</button>
+								<button onclick="buyAuto('turbine', 'LEU')" id="turbineLEUBuyAuto" class="autoBtn">Buy for 1.0e30 Energy</button>
+								<button onclick="toggleAuto('turbine', 'LEU')" id="turbineLEUToggleAuto" class="autoBtn">LEU-235 Turbine Autobuyer: OFF</button>
 							</div>
 							<div id="coolingRodLEUAuto">
-								<button onclick="buyAuto('coolingRod', 'LEU')" id="coolingRodLEUBuyAuto" class="smol red">Buy for 1.0e50 Energy</button>
-								<button onclick="toggleAuto('coolingRod', 'LEU')" id="coolingRodLEUToggleAuto" class="smol red">LEU-235 Cooling Rod Autobuyer: OFF</button>
+								<button onclick="buyAuto('coolingRod', 'LEU')" id="coolingRodLEUBuyAuto" class="autoBtn">Buy for 1.0e50 Energy</button>
+								<button onclick="toggleAuto('coolingRod', 'LEU')" id="coolingRodLEUToggleAuto" class="autoBtn">LEU-235 Cooling Rod Autobuyer: OFF</button>
 							</div>
 						</div>
 					</td>

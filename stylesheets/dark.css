@@ -102,115 +102,49 @@ body {
 	background-color: #888888;
     border: 2px solid #333333;
 }
-/* Reinhardt's magic button styles */
 
-.sbb {
-	width: 98%;
-	height: 40px;
-	border-width: 5px;
-	border-style: solid;
-	border-radius: 5px;
-	display: inline-block;
-	transition: width 0.2s;
-	transition: height 0.2s;
-}
 
-.sbb:focus {
-	outline: none;
-}
-
-.sbb.half {
-	width: 50%;
+/* Dystopia the incomptent Co-dev's really freaking disgusting button styles */
+.navibtn {
+	border: 3px solid blue;
+	border-radius: 3px;
+	background-color: #8888FF;
 	height: 30px;
+ 	width: 100px;
 }
-
-.sbb.half.x2 {
-	height: 60px;
+.navibtn:hover {
+	background-color: #AAAAFF;
 }
-
-.sbb.smol {
-  width: 200px !important;
-  height: 30px;
+.buyProductionBtn {
+	border: 3px solid #888888;
+	border-radius: 3px;
+	background-color: #AAAAAA;
+	height: 40px;
+	width: 200px;
 }
-
-.sbb.smol:hover {
-  width: 200px;
-  height: 29px;
+.buyProductionBtn:hover {
+	height: 41px;
+	width: 201px;
 }
-
-.sbb.smol:active {
-  width: 200px;
-  height: 27px;
+.mineBtn {
+	border: 3px solid #DB8C41;
+	border-radius: 3px;
+	background-color: #666666;
+	height: 40px;
+	width: 150px;
 }
-
-.sbb.height:hover:not(x2) {
-	height: 38px;
+.mineBtn:hover {
+	height: 41px;
+	width: 151px;
 }
-
-.sbb.height:active:not(x2) {
-	height: 35px;
+.drainBtn {
+	border: 3px solid #0000FF;
+	border-radius: 3px;
+	background-color: #006994;
+	height: 40px;
+	width: 300px;
 }
-
-.sbb.height.x2:hover {
-	height: 56px;
-}
-
-.sbb.height.x2:active {
-	height: 50px;
-}
-
-.sbb:hover:not(.height):not(.half) {
-	width: 98%;
-}
-
-.sbb:active:not(.height):not(.half) {
-	width: 95%;
-}
-
-.sbb.half:hover:not(.height) {
-	width: 49%;
-}
-
-.sbb.half:active:not(.height) {
-	width: 42.5%;
-}
-
-.grey {
-	background-color: darkgrey;
-	border-color: grey;
-}
-
-.lightgrey {
-	background-color: darkgrey;
-	border-color: grey;
-}
-
-.blue {
-	background-color: mediumslateblue;
-	border-color: #392759;
-}
-
-.green {
-	background-color: #3E885B;
-	border-color: #034C3C;
-}
-
-.red {
-	background-color: #B23A48;
-	border-color: #66101F;
-}
-
-.brown {
-	background-color: #513C2C;
-	border-color: #28190E;
-}
-
-.aqua {
-	background-color: #7B5E7B;
-	border-color: #1C0221;
-}
-
-.yellow {
-	background-color: #C36F09;
-	border-color: #A63C06;
+.drainBtn:hover {
+	height: 41px;
+	width: 301px;
 }

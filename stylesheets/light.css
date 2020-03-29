@@ -23,7 +23,7 @@ body {
 .milestonecomplete {
 	text-align: center;
 	background-color: #127A20;
-  color: white;
+        color: white;
 	width: 25vw;
 	height: 150px;
 	border: 3px solid #2828BF;
@@ -103,4 +103,66 @@ body {
 	color: #000000;
 	background-color: #888888;
     border: 2px solid #333333;
+}
+
+/* Dystopia the incomptent Co-dev's really freaking disgusting button styles */
+.navibtn {
+	border: 3px solid blue;
+	border-radius: 3px;
+	background-color: #8888FF;
+	height: 30px;
+ 	width: 100px;
+}
+.navibtn:hover {
+	background-color: #AAAAFF;
+}
+.buyProductionBtn {
+	border: 3px solid #888888;
+	border-radius: 3px;
+	background-color: #AAAAAA;
+	height: 40px;
+	width: 250px;
+}
+.buyProductionBtn:hover {
+	background-color: #CCCCCC;
+}
+.mineBtn {
+	border: 3px solid #DB8C41;
+	border-radius: 3px;
+	background-color: #666666;
+	height: 40px;
+	width: 150px;
+}
+.mineBtn:hover {
+	background-color: #888888;
+}
+.drainBtn {
+	border: 3px solid #0000FF;
+	border-radius: 3px;
+	background-color: #006994;
+	height: 40px;
+	width: 350px;
+}
+.drainBtn:hover {
+	background-color: #0079AA;
+}
+.autoBtn {
+	border: 3px solid #B5A642;
+	border-radius: 3px;
+	background-color: #B0B0B0;
+	height: 30px;
+	width: 130px;
+}
+.autoBtn:hover {
+	background-color: #D0D0D0;
+}
+.optionsBtn {
+	border: 3px solid #424954;
+	border-radius: 3px;
+	background-color: #028F1E;
+	height: 60px;
+	width: 300px;
+}
+.optionsBtn:hover {
+	background-color: #33DD33;
 }

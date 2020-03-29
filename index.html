@@ -46,14 +46,14 @@
 				<td id="effDiv" align="center" style="width:48vw">
 					<div align="center">
 						<p align="center">Increase efficiency of all mines by <span id="effMult">25.0</span>%</p>
-						<button onclick="buyEff()" class="height lightgrey" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
+						<button onclick="buyEff()" class="buyProductionBtn" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
 						<p align="center">Efficiency: <span id="eff">1000</span></p>
 					</div>
 				</td>
 				<td id="modDiv" align="right" style="width:24vw">
 					<div align="center">
 						<p align="center">Current Moderator: <span id="moderator">None</span></p>
-						<button onclick="buyModerator()" class="height lightgrey">Buy <span id="modCost">Graphite Moderator for 4096</span> Corium</button>
+						<button onclick="buyModerator()" class="buyProductionBtn">Buy <span id="modCost">Graphite Moderator for 4096</span> Corium</button>
 						<p align="center">Current Energy Limit: <span id="modLimit"></span> J</p>
 					</div>
 				</td>
@@ -62,7 +62,7 @@
 		
 		<div>
 			You have <span id="water">1000.0</span> ℓ of Water and <span id="steam">0.0</span> ℓ of Steam.
-			<button onclick="drainOcean()" class="sbb height blue">
+			<button onclick="drainOcean()" class="drainBtn">
 				Drain ocean to acquire more water for <span id="drainCost">100.0</span> J
 			</button>
 		</div>
@@ -83,7 +83,7 @@
 			<div id="LEU">
 				<div>
 					You have <span id="LEU_fuel">1.0</span> grams of LEU-235 fuel.
-					<button onclick="mineFuel(0, 1)" id="mineLEU" class="mineFuel">
+					<button onclick="mineFuel(0, 1)" id="mineLEU" class="mineBtn">
 						Mine more fuel for 10.0 J
 					</button>
 				</div>

@@ -123,8 +123,7 @@ body {
 	width: 250px;
 }
 .buyProductionBtn:hover {
-	height: 41px;
-	width: 251px;
+	background-color: #CCCCCC;
 }
 .mineBtn {
 	border: 3px solid #DB8C41;
@@ -134,8 +133,7 @@ body {
 	width: 150px;
 }
 .mineBtn:hover {
-	height: 41px;
-	width: 151px;
+	background-color: #888888;
 }
 .drainBtn {
 	border: 3px solid #0000FF;
@@ -145,8 +143,7 @@ body {
 	width: 350px;
 }
 .drainBtn:hover {
-	height: 41px;
-	width: 351px;
+	background-color: #0079AA;
 }
 .autoBtn {
 	border: 3px solid #B5A642;
@@ -156,6 +153,15 @@ body {
 	width: 130px;
 }
 .autoBtn:hover {
-	height: 31px;
-	width: 131px;
+	background-color: #D0D0D0;
+}
+.optionsBtn {
+	border: 3px solid #424954;
+	border-radius: 3px;
+	background-color: #028F1E;
+	height: 60px;
+	width: 300px;
+}
+.optionsBtn:hover {
+	background-color: #33DD33;
 }

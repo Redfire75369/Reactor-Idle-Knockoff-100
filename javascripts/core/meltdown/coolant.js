@@ -21,6 +21,10 @@ function buyCoolant(type) {
 }
 
 function switchCoolant(type) {
+	if (type == "none") {
+		player.coolantActive = type;
+		return;
+	}
 	if (player.coolant[type] == 1) {
 		player.coolantActive = type;
 	}
@@ -34,6 +38,7 @@ function simulateCoolant() {
 }
 
 function updateUICoolant() {
+	document.getElementById("switchNone").className = player.coolantActive == "none" ? "coolanton" : "coolantoff";
 	for (let i = 0, keys = Object.keys(coolantCost); i < keys.length; i++) {
 		document.getElementById("buy" + keys[i]).style.display = player.coolant[keys[i]] == 1 ? "none": "inline-block";
 		document.getElementById("switch" + keys[i]).style.display = player.coolant[keys[i]] == 1 ? "inline-block": "none";

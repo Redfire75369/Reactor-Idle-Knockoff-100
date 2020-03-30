@@ -96,7 +96,8 @@ function getDefault() {
 			meltdown: "meltdownUps"
 		},
 
-		time: 0
+		time: 0,
+		lastUpdate: Date.now()
 	};
 }
 
@@ -104,6 +105,14 @@ const zero = E(0);
 const infinity = ExpantaNum.pow(2, 1024);
 const types = ["LEU"];
 var player = getDefault();
+
+var focused = true;
+window.onfocus = function() {
+  focused=true;  
+}
+window.onblur = function() {
+  focused=false;  
+}  
 
 function hardReset() {
 	player = getDefault();
@@ -126,7 +135,14 @@ function getLimit() {
 	}
 }
 
-setInterval(function(){
+function updateGame(tick) {
+	checkMilestones();
+	simulateHeat(tick);
+	simulateEnergy(tick);
+	simulateAuto();
+	player.time += tick;
+}
+function updateUI() {
 	updateUIEnergy();
 	updateUISteam();
 	updateUIFuel();
@@ -138,17 +154,17 @@ setInterval(function(){
 	updateUIMeltdownUps();
 	updateUIModerator();
 	updateUICoolant();
+}
+
+setInterval(function(){
+	updateUI();
 }, 100)
-
-
 setInterval(function() {
-	checkMilestones();
-	simulateHeat(50);
-	simulateEnergy(50);
-	simulateAuto();
-	player.time += 50;
+	if (Date.now() > player.lastUpdate && focused) {
+		simulateTime((Date.now() - player.lastUpdate) / 1000);
+	}
+	player.lastUpdate = Date.now();
 }, 50)
-
 setInterval(function() {
 	saveGame();
 }, 10000)

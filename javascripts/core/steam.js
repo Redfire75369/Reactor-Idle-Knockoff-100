@@ -1,7 +1,7 @@
 function condenseSteam() {
 	let d = player.coolantActive == "FLiNaK" ? player.meltdown.corium.add(1).logBase(10).add(1).pow(10) : E(1);
-	let x = generateEnergy().div(player.production.turbine[0]).div(E(1.05).pow(player.production.coolingRod[0]));
-	return player.steam.gt(x) ? x.div(d) : player.steam.div(d);
+	let x = getTurbineMult(0).mul(E(1.05).pow(getCoolingRodMult(0)));
+	return player.steam.div(d).gt(x.div(d)) ? x.div(d) : player.steam.div(d);
 }
 function generateSteam() {
 	return (player.water.gt(player.heat)) ? player.heat : player.water;

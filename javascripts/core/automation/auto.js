@@ -75,7 +75,7 @@ function simulateAuto() {
 }
 
 function updateUIAuto() {
-	document.getElementById("fuelBasicAutoCost").innerText = notation(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]));
+	document.getElementById("fuelBasicAutoCost").innerText = notation(ExpantaNum.pow(10, 20 + 2 * player.automation.basic.fuel[0]));
 	
 	for (let i = 0; i < basicAuto.length; i++) {
 		if (!(basicAuto[i].includes("fuel"))) {

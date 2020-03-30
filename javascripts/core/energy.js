@@ -22,5 +22,5 @@ function simulateEnergy(tick = 50) {
 }
 
 function updateUIEnergy() {
-	document.getElementById("energy").innerText = notation(player.energy, false, true);
+	document.getElementById("energy").innerText = notation(player.energy, true);
 }

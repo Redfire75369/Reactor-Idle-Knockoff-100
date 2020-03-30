@@ -1,5 +1,5 @@
-function notation(num, dp = 1, test = false, energy = false) {
-	if (num.gte(getLimit()) && !test && energy) {
+function notation(num, dp = 1, energy = false) {
+	if (num.gte(getLimit()) && energy) {
 		return "Infinite";
 	}
 	switch ("Scientific") {

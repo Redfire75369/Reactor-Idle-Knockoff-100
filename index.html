@@ -31,6 +31,12 @@
 		<script src="javascripts/init_game.js" defer></script> 
 	</head>
 	<body>
+		
+		<div class="popup" id="offlinePopup" style="width: 450px; height: 200px;">
+			<div id="offlineProgress" style="height: 150px"></div>
+			<button class="btnbuy" style="font-size: 15px" onclick="closeOfflineProgress()" style="display: inline">Close</button>
+		</div>
+		
 		<div align="center">
 			<p id="coriumAmt" class="text" style="color: green">You have <span id="corium">0.0</span> Corium.</p> </br>
 			<button onclick="meltdown()" id="meltdown" class="meltdownbtn">Meltdown for <span id="coriumOnMeltdown">1</span> Corium</button>

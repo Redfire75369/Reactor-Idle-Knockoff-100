@@ -26,17 +26,18 @@ function buyAuto(type, cat) {
 }
 function buyMaxAuto(type, cat) {
 	if (type == "fuel") {
-		let x = ExpantaNum.affordGeometricSeries(player.energy, 1e20, 100, E(player.automation[cat][type]));
-		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1e20, 100, E(player.automation[cat][type])));
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 1e20, 100, player.automation.basic.fuel[0]);
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1e20, 100, player.automation.basic.fuel[0]));
 		if (!isFinite(player.automation[cat][type] + x.toNumber())) {
-			player.automation[cat][type] = 1.7e308;
+			player.automation[cat][type][0] = 1.7e308;
 		} else {
-			player.automation[cat][type] += x.toNumber();
+			player.automation[cat][type][0] += x.toNumber();
 		}
 	} else {
 		buyAuto(type, cat);
 	}
 }
+
 function toggleAuto(type, cat) {
 	if (player.automation[cat][type][0] >= 1) {
 		player.automation[cat][type][1] = !player.automation[cat][type][1];
@@ -45,12 +46,9 @@ function toggleAuto(type, cat) {
 
 function simulateAuto() {
 	if (player.automation.basic.water[1]) {
-		drainOcean();
+		drainBulkOcean();
 		if (player.milestones[41]) {
-			drainOcean();
-			drainOcean();
-			drainOcean();
-			drainOcean();
+			drainBulkOcean(24)
 		}
 	}
 	if (player.automation.basic.fuel[1] && player.energy.gt(1e8)) {

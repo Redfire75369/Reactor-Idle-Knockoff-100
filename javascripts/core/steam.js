@@ -1,6 +1,5 @@
 function condenseSteam() {
-	let d = player.coolantActive == "FLiNaK" ? player.meltdown.corium.add(1).logBase(10).add(1).pow(10) : E(1);
-	let x = getTurbineMult(0).mul(E(1.05).pow(getCoolingRodMult(0))).div(d);
+	let x = getTurbineMult(0).mul(E(1.05).pow(getCoolingRodMult(0)));
 	return player.steam.gt(x) ? x : player.steam;
 }
 function generateSteam() {
@@ -17,6 +16,14 @@ function canBuyDrain() {
 
 function drainOcean() {
 	if (canBuyDrain()) {
+		if (getDrainCost().lt("(10^)^4 308")){
+			player.energy = player.energy.sub(getDrainCost());
+		}
+		player.drain = player.drain.add(1);
+	}
+}
+function drainBulkOcean(num = 1) {
+	for (let i = 0; i < num && canBuyDrain(); i++) {
 		if (getDrainCost().lt("(10^)^4 308")){
 			player.energy = player.energy.sub(getDrainCost());
 		}

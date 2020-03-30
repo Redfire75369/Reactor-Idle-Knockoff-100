@@ -36,6 +36,6 @@ function importSave() {
 }
 function exportSave() {
 	saveGame();
-	copyStringToClipboard(getSaveString());
+	copyStringToClipboard(getSave());
 	alert("Save copied to clipboard");
 }

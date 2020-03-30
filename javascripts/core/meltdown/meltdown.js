@@ -27,10 +27,10 @@ function meltdown(forced = false) {
 		player.energy = getDefault().energy;
 		player.heat = getDefault().heat;
 		player.eff = getDefault().eff;
-
 		
 		player.drain = getDefault().drain;
 		player.steam = getDefault().steam;
+		player.water = getDefault().water;
 		
 		player.fuel = getDefault().fuel;
 		player.production = getDefault().production;

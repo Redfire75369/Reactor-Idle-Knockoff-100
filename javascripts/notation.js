@@ -1,5 +1,5 @@
-function notation(num, dp = 1, test = false) {
-	if (num.gte(getLimit()) && !test) {
+function notation(num, dp = 1, test = false, energy = false) {
+	if (num.gte(getLimit()) && !test && energy) {
 		return "Infinite";
 	}
 	switch ("Scientific") {
@@ -18,7 +18,7 @@ function scientific(num, dp, nest) {
 			return E(1).toFixed(dp) + "e" + scientific(num.logBase(10).floor().add(1), 1, nest + 1);
 		}
 	} else {
-		return num.floor().toString();
+		return num.toHyperE();
 	}
 }
 

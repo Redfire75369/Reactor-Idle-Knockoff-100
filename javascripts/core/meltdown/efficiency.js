@@ -1,6 +1,6 @@
 function getEffCost() {
 	let r = player.meltdown.ups[21] ? E(5) : E(10);
-	return E(1).mul(E(10).pow(player.eff.add(3)));
+	return E(1000).mul(r.pow(player.eff));
 }
 function canBuyEff() {
 	return player.energy.gte(getEffCost());
@@ -8,22 +8,26 @@ function canBuyEff() {
 
 function buyEff() {
 	if (canBuyEff()) {
-		player.energy = player.energy.sub(getEffCost());
+		if (getEffCost().lt("(10^)^4 308")) {
+			player.energy = player.energy.sub(getEffCost());
+		}
 		player.eff = player.eff.add(1);
 	}
 }
 function buyMaxEff() {
 	if (canBuyEff()) {
-		let r = player.meltdown.ups[21] ? E(5) : E(10);
-		let x = ExpantaNum.affordGeometricSeries(player.energy, 1, r, player.eff);
-		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1, r, player.eff));
+		let r = player.meltdown.ups[31] ? E(2) : player.meltdown.ups[21] ? E(5) : E(10);
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 1000, r, player.eff);
+		if (getEffCost().lt("(10^)^4 308")) {
+			player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1000, r, player.eff));
+		}
 		player.eff = player.eff.add(x);
 	}
 }
 
 function getEffIncrement() {
-	let ret = (player.coolantActive == "FLiNaK") ? player.corium.log10().log10() : E(1.50);
-	return ExpantaNum.max(1.50, ret);
+	let ret = (player.coolantActive == "FLiNaK") ? player.meltdown.corium.add(1).logBase(10).add(1.50) : E(1.50);
+	return ret;
 }
 
 function getEff() {

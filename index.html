@@ -47,7 +47,8 @@
 				<td id="effDiv" align="center" style="width:48vw">
 					<div align="center">
 						<p align="center">Increase efficiency of all mines by <span id="effMult">25.0</span>%</p>
-						<button onclick="buyEff()" class="buyproductionbtn" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
+						<button onclick="buyEff()" id="buyEff" class="buyproductionbtn" align="center">Cost: <span id="effCost">1.00e3</span> J</button>
+						<button onclick="buyMaxEff()" id="buyMaxEff" class="buyproductionbtn" align="center">Buy Max</button>
 						<p align="center">Efficiency: <span id="eff">1000</span></p>
 					</div>
 				</td>
@@ -63,9 +64,8 @@
 		
 		<div>
 			You have <span id="water">1000.0</span> ℓ of Water and <span id="steam">0.0</span> ℓ of Steam.
-			<button onclick="drainOcean()" class="drainbtn">
-				Drain ocean to acquire more water for <span id="drainCost">100.0</span> J
-			</button>
+			<button onclick="drainOcean()" id="drain" class="drainbtn">Drain ocean to acquire more water for <span id="drainCost">100.0</span> J</button>
+			<button onclick="drainMaxOcean()" id="drainMax" class="drainbtn">Drain Max</button>
 		</div>
 		<div id="navibtn" class="center">
 			<table class="center">
@@ -101,8 +101,13 @@
 								<span id="LEU_rt">0</span>
 							</td>
 							<td>
-								<button onclick="buyReactor(0)" class="buyproductionbtn">
+								<button onclick="buyReactor(0)" id="buyLEUReactor" class="buyproductionbtn">
 									Buy LEU Reactor for <span id="LEU_rtcost">1.0</span> J
+								</button>
+							</td>
+							<td>
+								<button onclick="buyMaxReactor(0)" id="buyMaxLEUReactor" class="buyproductionbtn">
+									Buy max LEU Reactors
 								</button>
 							</td>
 						</tr>
@@ -114,8 +119,13 @@
 								<span id="LEU_tur">0</span>
 							</td>
 							<td>
-								<button onclick="buyTurbine(0)" class="buyproductionbtn">
+								<button onclick="buyTurbine(0)" id="buyLEUTurbine" class="buyproductionbtn">
 									Buy LEU Turbine for <span id="LEU_turcost">1.0</span> J
+								</button>
+							</td>
+							<td>
+								<button onclick="buyMaxTurbine(0)" id="buyMaxLEUTurbine" class="buyproductionbtn">
+									Buy max LEU Turbines
 								</button>
 							</td>
 						</tr>
@@ -127,8 +137,13 @@
 								<span id="LEU_cr">0</span>
 							</td>
 							<td>
-								<button onclick="buyCoolingRod(0)" class="buyproductionbtn">
+								<button onclick="buyCoolingRod(0)" id="buyLEUCoolingRod" class="buyproductionbtn">
 									Buy LEU Cooling Rod for <span id="LEU_crcost">1.0</span>
+								</button>
+							</td>
+							<td>
+								<button onclick="buyMaxCoolingRod(0)" id="buyMaxLEUCoolingRod" class="buyproductionbtn">
+									Buy max LEU Cooling Rods
 								</button>
 							</td>
 						</tr>
@@ -209,13 +224,39 @@
 					<td class="milestonetd">
 						<div id="milestone33" class="milestonelocked">
 							Reach 1e100 Efficiency<br>
-							Reward: Unlock efficiency upgrade and efficiency upgrade
+							Reward: Unlock efficiency autobuyer and cost scaling of efficiency is reduced
 						</div>
 					</td>
 					<td class="milestonetd">
 						<div id="milestone34" class="milestonelocked">
 							Buy the Graphite Moderator<br>
 							Reward: Unlock Coolants
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="milestonetd">
+						<div id="milestone41" class="milestonelocked">
+							Unlock NaK Coolant<br>
+							Reward: Unlock manual buy max for production and efficiency and improve water autodrainers
+						</div>
+					</td>
+					<td class="milestonetd">
+						<div id="milestone42" class="milestonelocked">
+							Reach 1.00e100000 J<br>
+							Reward: Unlock buy max for Fuel Autominers and Fuel autominers exponentiate fuel gain
+						</div>
+					</td>
+					<td class="milestonetd">
+						<div id="milestone43" class="milestonelocked">
+							Drain the ocean 100000 times<br>
+							Reward: 
+						</div>
+					</td>
+					<td class="milestonetd">
+						<div id="milestone44" class="milestonelocked">
+							Buy Lead Coolant<br>
+							Reward: Unlock Centrifuges
 						</div>
 					</td>
 				</tr>
@@ -228,11 +269,12 @@
 					<td>
 						<div class="autodiv">
 							<div id="waterBasicAuto">
-								<button onclick="buyAuto('water', 'basic')" id="waterBasicBuyAuto" class="autobtn">Buy for 1.0e8 Energy</button>
+								<button onclick="buyAuto('water', 'basic')" id="waterBasicBuyAuto" class="autobtn">Buy for 1.0e20 Energy</button>
 								<button onclick="toggleAuto('water', 'basic')" id="waterBasicToggleAuto" class="autobtn">Water Autobuyer: OFF</button>
 							</div>
 							<div id="fuelBasicAuto">
-								<button onclick="buyAuto('fuel', 'basic')" id="fuelBasicBuyAuto" class="autobtn">Buy for <span id="fuelBasicAutoCost">1.0e8</span> Energy</button>
+								<button onclick="buyAuto('fuel', 'basic')" id="fuelBasicBuyAuto" class="autobtn">Buy for <span id="fuelBasicAutoCost">1.0e20</span> Energy</button>
+								<button onclick="buyMaxAuto('fuel', 'basic')" id="fuelBasicBuyMaxAuto" class="autobtn">Buy Max</button>
 								<button onclick="toggleAuto('fuel', 'basic')" id="fuelBasicToggleAuto" class="autobtn">Fuel Autominer: OFF</button>
 							</div>
 							<div id="effBasicAuto" style="display:none">
@@ -322,6 +364,26 @@
 							</button>
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<button onclick="buyMeltdownUp(31)" id="meltdownUp31">
+								Cost scaling of drains and efficiency is further reduced<br>
+								Cost: 1.00e200 Corium
+							</button>
+						</td>
+						<td>
+							<button onclick="buyMeltdownUp(32)" id="meltdownUp32">
+								Drains raise total water to a much higher power<br>
+								Cost: 1.00e300 Corium
+							</button>
+						</td>
+						<td>
+							<button onclick="buyMeltdownUp(33)" id="meltdownUp33">
+								Cooling rods and drains boost each other<br>
+								Cost: 1.00e2500 Corium
+							</button>
+						</td>
+					</tr>
 				</table>
 			</div>
 			<div id="coolants">
@@ -332,42 +394,42 @@
 							<p>NaK Coolant<br>
 							Buff: Multiplier of Turbines is greatly increased<br>
 							Debuff: Multiplier of Reactors is greatly decreased</p>
-							<button onclick="buyCoolant('NaK')" id="buyNaK" class="coolantbtn">Buy NaK Coolant for 1.80e308 Corium</button>
+							<button onclick="buyCoolant('NaK')" id="buyNaK" class="coolantbtn">Buy NaK Coolant for 1.00e20 Corium</button>
 							<button onclick="switchCoolant('NaK')" id="switchNaK" class="coolantoff">Switch to NaK Coolant</button>
 						</td>
 						<td>
 							<p>Na Coolant<br>
 							Buff: Multiplier of Reactors is greatly increased<br>
 							Debuff: Multiplier of Turbines is greatly decreased</p>
-							<button onclick="buyCoolant('Na')"  id="buyNa" class="coolantbtn">Buy Na Coolant for 1.00e1.00e5 Corium</button>
+							<button onclick="buyCoolant('Na')"  id="buyNa" class="coolantbtn">Buy Na Coolant for 1.00e100 Corium</button>
 							<button onclick="switchCoolant('Na')" id="switchNa" class="coolantoff">Switch to Na Coolant</button>
 						</td>
 						<td>
 							<p>FLiNaK Coolant<br>
-							Buff: Efficiency increment is increased based on corium<br>
+							Buff: Efficiency increment and steam energy density is increased based on corium <br>
 							Debuff: Chance of a Meltdown occuring randomly at a rate of 0.125%/50ms</p>
-							<button onclick="buyCoolant('FLiNaK')" id="buyFLiNaK" class="coolantbtn">Buy FLiNaK Coolant for 1.00e1.00e100 Corium</button>
+							<button onclick="buyCoolant('FLiNaK')" id="buyFLiNaK" class="coolantbtn">Buy FLiNaK Coolant for 1.79e308 Corium</button>
 							<button onclick="switchCoolant('FLiNaK')" id="switchFLiNaK" class="coolantoff">Switch to FLiNaK Coolant</button>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<p>FliBe Coolant<br>
+							<p>FLiBe Coolant<br>
 							Buff: Corium gain is increased based on efficiency<br>
 							Debuff: Multiplier of Cooling Rods is greatly decreased</p>
-							<button onclick="buyCoolant('FLiBe')" id="buyFLiBe" class="coolantbtn">Buy FLiBe Coolant for 1.0e1.0e1.0e5 Corium</button>
+							<button onclick="buyCoolant('FLiBe')" id="buyFLiBe" class="coolantbtn">Buy FLiBe Coolant for 1.0e1.0e100 Corium</button>
 							<button onclick="switchCoolant('FLiBe')" id="switchFLiBe" class="coolantoff">Switch to FLiBe Coolant</button>
 						</td>
 						<td>
 							<p>Pb Coolant<br>
 							Buff: <br>
 							Debuff: </p>
-							<button onclick="buyCoolant('Pb')" id="buyPb" class="coolantbtn">Buy Pb Coolant for 1.0e1.0e1.0e100 Corium</button>
+							<button onclick="buyCoolant('Pb')" id="buyPb" class="coolantbtn">Buy Pb Coolant for 1.0e1.0e1.0e5 Corium</button>
 							<button onclick="switchCoolant('Pb')" id="switchPb" class="coolantoff">Switch to Pb Coolant</button>
 						</td>
 						<td>
 							<p>PbBi Coolant<br>
-							Buff: Centrifuges pentate heat, water and steam gain<br>
+							Buff: Centrifuges pentate heat and steam gain<br>
 							Debuff: All multipliers of producers greatly decreased and cooling rods are disabled</p>
 							<button onclick="buyCoolant('PbBi')" id="buyPbBi" class="coolantbtn">Buy PbBi Coolant for 1.0e1.0e1.0e1.0e308 Corium</button>
 							<button onclick="switchCoolant('PbBi')" id="switchPbBi" class="coolantoff">Switch to PbBi Coolant</button>

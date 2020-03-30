@@ -1,6 +1,6 @@
 function mineFuel(type, amount) {
-	if (player.energy.gt(10)) {
-		player.energy = player.energy.sub(10);
+	if (player.energy.gt(E(10).mul(amount))) {
+		player.energy = player.energy.sub(E(10).mul(amount));
 		player.fuel.amount[type] = player.fuel.amount[type].add(amount);
 	}
 }

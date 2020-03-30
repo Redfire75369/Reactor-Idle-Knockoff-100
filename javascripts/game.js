@@ -38,7 +38,11 @@ function getDefault() {
 			31: false,
 			32: false,
 			33: false,
-			34: false
+			34: false,
+			41: false,
+			42: false,
+			43: false,
+			44: false
 		},
 
 		automation: {
@@ -64,7 +68,10 @@ function getDefault() {
 				13: false,
 				21: false,
 				22: false,
-				23: false
+				23: false,
+				31: false,
+				32: false,
+				33: false
 			}
 		},
 
@@ -111,7 +118,9 @@ function getLimit() {
 		case 1:
 			return E("e1.79e308");
 		case 2:
-			return E("eee1.79e308")
+			return E("eee1.79e308");
+		case 3:
+			return E(Infinity);
 		default:
 			return E(0);
 	}
@@ -134,7 +143,6 @@ setInterval(function(){
 
 setInterval(function() {
 	checkMilestones();
-	simulateSteam(50);
 	simulateHeat(50);
 	simulateEnergy(50);
 	simulateAuto();

@@ -2,8 +2,8 @@ const basicAuto = ["water", "fuel", "eff"];
 const LEUAuto = ["reactor", "turbine", "coolingRod"];
 const autoCost = {
 	basic: {
-		water: E(1e8),
-		fuel: E(1e8),
+		water: E(1e20),
+		fuel: E(1e20),
 		eff: E("1e600")
 	},
 	LEU: {
@@ -15,8 +15,8 @@ const autoCost = {
 
 function buyAuto(type, cat) {
 	if (player.energy.gte(autoCost[cat][type])) {
-		if (type == "fuel" && player.energy.gte(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]))) {
-			player.energy = player.energy.sub(ExpantaNum.pow(10, 8 + 2 * player.automation.basic.fuel[0]));
+		if (type == "fuel" && player.energy.gte(ExpantaNum.pow(10, 20 + 2 * player.automation.basic.fuel[0]))) {
+			player.energy = player.energy.sub(ExpantaNum.pow(10, 20 + 2 * player.automation.basic.fuel[0]));
 			player.automation[cat][type][0]+= 1;
 		} else if (player.automation[cat][type][0] == 0){
 			player.energy = player.energy.sub(autoCost[cat][type]);
@@ -24,7 +24,19 @@ function buyAuto(type, cat) {
 		}
 	}
 }
-
+function buyMaxAuto(type, cat) {
+	if (type == "fuel") {
+		let x = ExpantaNum.affordGeometricSeries(player.energy, 1e20, 100, E(player.automation[cat][type]));
+		player.energy = player.energy.sub(ExpantaNum.sumGeometricSeries(x, 1e20, 100, E(player.automation[cat][type])));
+		if (!isFinite(player.automation[cat][type] + x.toNumber())) {
+			player.automation[cat][type] = 1.7e308;
+		} else {
+			player.automation[cat][type] += x.toNumber();
+		}
+	} else {
+		buyAuto(type, cat);
+	}
+}
 function toggleAuto(type, cat) {
 	if (player.automation[cat][type][0] >= 1) {
 		player.automation[cat][type][1] = !player.automation[cat][type][1];
@@ -34,9 +46,19 @@ function toggleAuto(type, cat) {
 function simulateAuto() {
 	if (player.automation.basic.water[1]) {
 		drainOcean();
+		if (player.milestones[41]) {
+			drainOcean();
+			drainOcean();
+			drainOcean();
+			drainOcean();
+		}
 	}
 	if (player.automation.basic.fuel[1] && player.energy.gt(1e8)) {
-		mineFuel(0, player.automation.basic.fuel[0]);
+		if (player.milestones[42]) {
+			mineFuel(0, E(3).pow(player.automation.basic.fuel[0]));
+		} else {
+			mineFuel(0, player.automation.basic.fuel[0]);
+		}
 	}
 	if (player.automation.basic.eff[1]) {
 		buyEff();
@@ -69,6 +91,7 @@ function updateUIAuto() {
 			document.getElementById(LEUAuto[i] + "LEUToggleAuto").className = player.automation.LEU[LEUAuto[i]][1] ? "smol green" : "smol red";
 		}
 	}
+	
 	document.getElementById("waterBasicToggleAuto").innerText = player.automation.basic["water"][1] ? "Water Autodrainer: ON" : "Water Autodrainer: OFF";
 	document.getElementById("fuelBasicToggleAuto").innerText = player.automation.basic["fuel"][1] ? "Fuel Autominer: ON" : "Fuel Autominer: OFF";
 	document.getElementById("effBasicToggleAuto").innerText = player.automation.basic["eff"][1] ? "Efficiency Autobuyer: ON" : "Efficiency Autobuyer: OFF";

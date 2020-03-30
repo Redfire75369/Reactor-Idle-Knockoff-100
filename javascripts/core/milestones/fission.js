@@ -1,4 +1,4 @@
-const milestones = [11, 12, 13, 14, 21, 22, 23, 24, 31, 32, 33, 34];
+const milestones = [11, 12, 13, 14, 21, 22, 23, 24, 31, 32, 33, 34, 41, 42, 43, 44];
 
 function getMilestoneMult() {
 	let ret = E(1);
@@ -32,6 +32,11 @@ function checkMilestones() {
 	player.milestones[32] = player.milestones[32] ? true : player.meltdown.corium.gte(16);
 	player.milestones[33] = player.milestones[33] ? true : getEff().gte(2.51e92);
 	player.milestones[34] = player.milestones[34] ? true : player.moderator >= 1;
+	
+	player.milestones[41] = player.milestones[41] ? true : player.coolant["NaK"] == 1;
+	player.milestones[42] = player.milestones[42] ? true : player.energy.gte("ee5");
+	player.milestones[43] = player.milestones[43] ? true : player.drain.gte(100000);
+	player.milestones[44] = player.milestones[44] ? true : player.coolant["PbBi"] == 1;
 }
 
 function updateUIMilestones() {
@@ -49,6 +54,20 @@ function updateUIMilestones() {
 	
 	document.getElementById("effBasicAuto").style.display = player.milestones[33] ? "inline-block" : "none";
 	document.getElementById("coolantbtn").style.display = player.milestones[34] ? "inline-block" : "none";
+	
+	document.getElementById("buyLEUReactor").style.display = player.milestones[41] ? "none" : "inline-block";
+	document.getElementById("buyMaxLEUReactor").style.display = player.milestones[41] ? "inline-block" : "none";
+	document.getElementById("buyLEUTurbine").style.display = player.milestones[41] ? "none" : "inline-block";
+	document.getElementById("buyMaxLEUTurbine").style.display = player.milestones[41] ? "inline-block" : "none";
+	document.getElementById("buyLEUCoolingRod").style.display = player.milestones[41] ? "none" : "inline-block";
+	document.getElementById("buyMaxLEUCoolingRod").style.display = player.milestones[41] ? "inline-block" : "none";
+	document.getElementById("buyEff").style.display = player.milestones[41] ? "none" : "inline-block";
+	document.getElementById("buyMaxEff").style.display = player.milestones[41] ? "inline-block" : "none";
+	document.getElementById("fuelBasicBuyAuto").style.display = player.milestones[42] ? "none" : "inline-block";
+	document.getElementById("fuelBasicBuyMaxAuto").style.display = (player.milestones[42] && player.automation.basic.fuel[0] <= 1.69e308) ? "inline-block" : "none";
+	document.getElementById("drain").style.display = player.milestones[43] ? "none" : "inline-block";
+	document.getElementById("drainMax").style.display = player.milestones[43] ? "inline-block" : "none";
+	
 	for (let i = 0; i < milestones.length; i++) {
 		document.getElementById("milestone" + milestones[i]).className = player.milestones[milestones[i]] ? "milestonecomplete" : "milestonelocked";
 	}

@@ -4,9 +4,12 @@ const meltdownUpCost = {
 	13: E(3),
 	21: E(100),
 	22: E(250),
-	23: E(1000)
+	23: E(1000),
+	31: E(1e200),
+	32: E(1e300),
+	33: E("1e2500")
 }
-const meltdownUpList = [11, 12, 13, 21, 22, 23];
+const meltdownUpList = [11, 12, 13, 21, 22, 23, 31, 32, 33];
 
 function canBuyMeltdownUp(id) {
 	return (player.meltdown.corium.gte(meltdownUpCost[id]) && !player.meltdown.ups[id]);

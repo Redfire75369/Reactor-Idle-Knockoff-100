@@ -1,10 +1,10 @@
 const coolantCost = {
-	NaK: infinity,
-	Na: E("ee5"),
-	FLiNaK: E("ee100"),
-	FLiBe: E("eee5"),
-	Pb: E("eee100"),
-	PbBi: E("eeee308")
+	NaK: E("e20"),
+	Na: E("e100"),
+	FLiNaK: infinity,
+	FLiBe: E("ee5"),
+	Pb: E("ee100"),
+	PbBi: E("(10^)^50 308")
 };
 
 function getCoolantCost(type) {

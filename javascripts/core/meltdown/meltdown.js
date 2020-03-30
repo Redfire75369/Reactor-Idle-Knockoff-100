@@ -8,7 +8,7 @@ function coriumGain() {
 		x = getLimit();
 	}
 	let mult = player.milestones[32] ? E(2) : E(1);
-	mult = (player.coolantActive == "FLiBe") ? mult.mul(getEff().log10().add(1).log10().add(1)) : mult;
+	mult = (player.coolantActive == "FLiBe") ? mult.mul(getEff().log10().add(1)) : mult;
 	return ExpantaNum.pow(10, x.logBase(2).sub(1024).div(1024)).mul(mult);
 }
 function canMeltdown() {

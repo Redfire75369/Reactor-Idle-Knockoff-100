@@ -27,7 +27,7 @@ function getMeltdownUpMult(id) {
 		case 11:
 			return ExpantaNum.max(1, Math.log2(player.time / 1000));
 		case 12:
-			return ExpantaNum.max(1, player.energy.logBase(10).div(4));
+			return ExpantaNum.max(1, player.energy.add(10).logBase(10).div(4));
 		case 13:
 			return ExpantaNum.max(1, ExpantaNum.pow(1.5, player.automation.basic.fuel[0])); 
 		default:

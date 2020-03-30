@@ -4,7 +4,7 @@ function condenseSteam() {
 	return player.steam.gt(x) ? x : player.steam;
 }
 function generateSteam() {
-	return (player.water.gt(player.heat)) ? player.heat : player.water;
+	return player.water.gt(player.heat) ? player.heat : player.water;
 }
 
 function getDrainCost() {

@@ -162,8 +162,8 @@ setInterval(function(){
 setInterval(function() {
 	if (Date.now() > player.lastUpdate && focused) {
 		simulateTime((Date.now() - player.lastUpdate) / 1000);
+		player.lastUpdate = Date.now();
 	}
-	player.lastUpdate = Date.now();
 }, 50)
 setInterval(function() {
 	saveGame();
